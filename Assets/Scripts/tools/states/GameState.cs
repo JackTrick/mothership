@@ -13,7 +13,6 @@ public class GameState {
 	// ===========================
 
 	// you should generally override the following
-
 	virtual public void OnPush() {
 		#if LOG_STATE_CHANGES
 		Debug.Log ("OnPush: " + name);

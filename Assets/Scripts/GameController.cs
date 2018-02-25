@@ -108,21 +108,81 @@ using UnityEngine.UI;
 * at its smallest level, this could be a game without populations or components.
 * it has resoures, people with skill levels, areas of need to be met.
 */
-public class Game : MonoBehaviour {
+public class GameController : MonoBehaviour {
 
-	public static Game instance { get; private set; }
+	private static GameController instance_;
+	public static GameController Instance { get { return instance_; } }
 
 	private StateMachine stateMachine_;
 	private Ship ship_;
+	public Ship PlayerShip { get { return ship_; } }
 
 	// Use this for initialization
 	void Start () {
 		stateMachine_ = new StateMachine ();
 		stateMachine_.PushState (new StartState ());
+
+		ship_ = new Ship ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		stateMachine_.Update ();
+	}
+
+	private void Awake()
+	{
+		if (instance_ != null && instance_ != this)
+		{
+			Destroy(this.gameObject);
+		} else {
+			instance_ = this;
+		}
+	}
+
+	public void StartGame()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new CreationState ());
+	}
+
+	public void ConfirmShipCreation()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new ShipStatusState ());
+	}
+
+	public void TriggerNextEvent()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new EventState ());
+	}
+
+	public void ConfirmEventChoice()
+	{
+		ship_.ChangePopulation (-10000);
+		if (ship_.Population == 0) {
+			ShowConclusion ();
+		} else {
+			ShowShipStatus ();
+		}
+	}
+
+	public void ShowShipStatus()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new ShipStatusState ());
+	}
+
+	public void ShowConclusion()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new ConclusionState ());
+	}
+
+	public void ReturnToStart()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new StartState ());
 	}
 }

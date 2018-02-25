@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F0775CF3-2566-DF18-F0D2-BE3D68B2A07A}</ProjectGuid>
+    <ProjectGuid>{66037666-343F-1502-28A1-D26E6C49CAC2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,11 +51,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\model\Ship.cs" />
+     <Compile Include="Assets\Scripts\states\ConclusionState.cs" />
+     <Compile Include="Assets\Scripts\states\CreationState.cs" />
+     <Compile Include="Assets\Scripts\states\EventState.cs" />
+     <Compile Include="Assets\Scripts\states\ShipStatusState.cs" />
      <Compile Include="Assets\Scripts\states\StartState.cs" />
      <Compile Include="Assets\Scripts\tools\states\GameState.cs" />
+     <Compile Include="Assets\Scripts\tools\states\GameUIState.cs" />
      <Compile Include="Assets\Scripts\tools\states\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\ui\ConclusionUI.cs" />
+     <Compile Include="Assets\Scripts\ui\CreationUI.cs" />
+     <Compile Include="Assets\Scripts\ui\EventUI.cs" />
+     <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
+     <Compile Include="Assets\Scripts\ui\StartUI.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

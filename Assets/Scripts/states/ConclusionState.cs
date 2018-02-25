@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartState : GameUIState {
-	public const string STATE_NAME = "start";
+public class ConclusionState : GameUIState {
+	public const string STATE_NAME = "conclusion";
 
-	private StartUI startUI_;
+	private ConclusionUI conclusionUI_;
 
-	public StartState(): base(STATE_NAME, "UI/ui_start"){
+	public ConclusionState(): base(STATE_NAME, "UI/ui_conclusion"){
 
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 
-	
 	override public void OnPush() {
 		base.OnPush ();
 	}
 
 	override public void OnEnter() {
 		base.OnEnter ();
-		startUI_ = UI.GetComponent<StartUI> ();
+		conclusionUI_ = UI.GetComponent<ConclusionUI> ();
 	}
 
 	override public void OnExit() {

@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartState : GameUIState {
-	public const string STATE_NAME = "start";
+public class ShipStatusState : GameUIState {
+	public const string STATE_NAME = "ship_status";
 
-	private StartUI startUI_;
+	private ShipStatusUI statusUI_;
 
-	public StartState(): base(STATE_NAME, "UI/ui_start"){
+	public ShipStatusState(): base(STATE_NAME, "UI/ui_shipstatus"){
 
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 
-	
 	override public void OnPush() {
 		base.OnPush ();
 	}
 
 	override public void OnEnter() {
 		base.OnEnter ();
-		startUI_ = UI.GetComponent<StartUI> ();
+		statusUI_ = UI.GetComponent<ShipStatusUI> ();
 	}
 
 	override public void OnExit() {
