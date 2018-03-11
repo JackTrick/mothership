@@ -23,6 +23,8 @@ public class EventState : GameUIState {
 	override public void OnEnter() {
 		base.OnEnter ();
 		eventUI_ = UI.GetComponent<EventUI> ();
+
+		GameEvent gameEvent = GameEventManager.Instance.SpawnEvent();
 	}
 
 	override public void OnExit() {

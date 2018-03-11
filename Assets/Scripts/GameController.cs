@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Xml;
+using System.Xml.Serialization;
 
 /**
  *	Events
@@ -120,9 +122,12 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		stateMachine_ = new StateMachine ();
-		stateMachine_.PushState (new StartState ());
 
 		ship_ = new Ship ();
+		GameEventManager.Instance.LoadEvents ();
+
+		//stateMachine_.PushState (new StartState ());
+		stateMachine_.PushState (new EventState ());
 	}
 	
 	// Update is called once per frame
@@ -143,7 +148,8 @@ public class GameController : MonoBehaviour {
 	public void StartGame()
 	{
 		stateMachine_.PopAll ();
-		stateMachine_.PushState (new CreationState ());
+		//stateMachine_.PushState (new CreationState ());
+		stateMachine_.PushState (new ShipStatusState ());
 	}
 
 	public void ConfirmShipCreation()

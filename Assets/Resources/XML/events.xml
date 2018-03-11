@@ -1,0 +1,525 @@
+<events>
+
+	<!-- Intro events, before we get into space -->
+	<event id="start00">
+		<name>What is your story?</name>
+		<desc>The hum of ancient processors whirring to life. You can see nothing, but you sense a voice.
+			"You escaped to space after the Destruction. Who were you?"</desc>
+
+		<only_once>true</only_once>
+		<mandatory>true</mandatory>
+		<weight>1</weight>
+
+		<choices>
+			<choice>
+				<name>A Research Vessel</name>
+				<desc>Decommisioned. About to be scrapped for supplies.</desc>
+
+				<result>
+					<desc>You remember your name. Void Watcher.</desc>
+					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
+					<effect type="setitemamount" value="power" amount="100"/>
+					<effect type="setitemamount" value="missiles" amount="1"/>
+					<effect type="setitemamount" value="science crew" amount="6"/>
+					<effect type="setitemamount" value="tactical crew" amount="2"/>
+
+					<effect type="setitemcap" value="power" amount="200"/>
+					<effect type="setitemcap" value="missiles" amount="2"/>
+					
+					<effect type="setitemproducer" value="power" amount="-4" turns_to_produce="1"/>
+					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>A Scouting Ship</name>
+				<desc>Returning from the front. Battered but not broken.</desc>
+
+				<result>
+					<desc>You remember your name. Khonsu.</desc>
+					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
+					<effect type="setitemamount" value="power" amount="80"/>
+					<effect type="setitemamount" value="missiles" amount="3"/>
+					<effect type="setitemamount" value="science crew" amount="2"/>
+					<effect type="setitemamount" value="tactical crew" amount="8"/>
+
+					<effect type="setitemcap" value="power" amount="120"/>
+					<effect type="setitemcap" value="missiles" amount="5"/>
+
+					<effect type="setitemproducer" value="power" amount="-6" turns_to_produce="1"/>
+					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>A Smuggler</name>
+				<desc>Too small to notice. You hoped.</desc>
+
+				<result>
+					<desc>You remember your name. The Gleeber.</desc>
+					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
+					<effect type="setitemamount" value="power" amount="50"/>
+					<effect type="setitemamount" value="missiles" amount="0"/>
+					<effect type="setitemamount" value="science crew" amount="10"/>
+					<effect type="setitemamount" value="tactical crew" amount="2"/>
+
+					<effect type="setitemcap" value="power" amount="50"/>
+					<effect type="setitemcap" value="missiles" amount="0"/>
+
+					<effect type="setitemproducer" value="power" amount="-3" turns_to_produce="1"/>
+					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="start01">
+		<name>The Event</name>
+		<desc>Suddenly you're back on the day it happened. Calamity. Destruction. The planet is in ruins. You receive a distress call from a small colony ship. Her name is Open Arms. Her crew needs help.</desc>
+
+		<triggers>
+			<trigger value="start00"/>
+		</triggers>
+
+		<only_once>true</only_once>
+		<mandatory>true</mandatory>
+		<weight>100</weight>
+
+		<choices>
+			<choice>
+				<name>Take the Crew</name>
+				<desc>You find Open Arms under attack. You transfer over a few of her crew before she is destroyed. You feel the increased strain on your power cells. You must escape.</desc>
+				<result>
+					<desc></desc>
+					<effect type="setitemamount" value="settlers" amount="10"/>
+					<effect type="setitemcap" value="settlers" amount="10"/>
+					<effect type="changeitemproducer" value="power" amount="-1" turns_to_produce="1"/>
+					
+					<effect type="setflag" value="took the settlers"/>
+
+					<effect type="endgame"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Leave the Crew</name>
+				<desc>Helping them could endanger you and yours.</desc>
+				<result>
+					<desc>You can't take the risk. You abandon Open Arms and her crew to their fate. After a few minutes, the ship's voice is silent.</desc>
+					<effect type="endgame"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+<!--
+
+	<event id="start02">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start01"/>
+		</triggers>
+
+		<only_once>true</only_once>
+		<mandatory>true</mandatory>
+		<weight>100</weight>
+
+		<choices>
+			<choice>
+				<name>Stealth</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Bribe</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+	<! player now in space, has a pool of events -->
+<!--
+	<event id="space_armada01">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Flee</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Bribe</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Missile</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="space_gather01">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Gather</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Flee</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="space_squid01">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Avoid</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Study</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Missile</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Diplomacy</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+-->
+	<!-- second tier space events -->
+<!--
+	<event id="space_armada02">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Flee</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Missile</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Jettison the Settlers</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+
+	<event id="space_squid02">
+		<name>You Must Escape</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Attack</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Missile</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Watch</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+-->
+	<!-- end tier events -->
+<!--
+	<event id="escape01">
+		<name>You Have Escaped</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Embrace Space</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Found a New Colony</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="pre_escape01">
+		<name>Settlers Attack!</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Embrace Space</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Found a New Colony</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="alien_trader01">
+		<name>You Appear to Be In Need!</name>
+		<desc></desc>
+
+		<triggers>
+			<trigger value="start02"/>
+		</triggers>
+
+		<weight>20</weight>
+
+		<choices>
+			<choice>
+				<name>Pay Power</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Pay Crew</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Pay Settlers</name>
+				<desc></desc>
+			</choice>
+			<choice>
+				<name>Give Nothing</name>
+				<desc></desc>
+			</choice>
+		</choices>
+	</event>
+
+-->
+
+	<!--
+	<event id="termites01">
+  		<name>Space Termites!</name>
+		<desc>The ship is beset by space termites. Their powerful jaws tear through durasteel like paper, and your science officer advises only a massive blast of electricity can dislodge them.</desc>
+		
+		<triggers>
+			<trigger logic="NOT" type="Flag" value="TermiteChain"/>
+		</triggers>
+		
+	
+		<only_once>false</only_once>
+		<mandatory>false</mandatory>
+		<weight>1</weight>
+		<weight_per_turn>1</weight_per_turn>
+		<weight_per_turn_percent>1</weight_per_turn_percent>
+		<min_weight>-20</min_weight>
+		<max_weight>15</max_weight>
+		
+		<listeners>
+			<listener for="VerminDeflectorDecay">
+				<weight type="change" amount="30"/>
+			</listener>
+		</listeners>
+			
+		<choices>
+			<choice>
+				<name>Electrify the Hull</name>
+				<desc>Zap 'em!</desc>
+				<costs>					
+					<cost value="Power" amount="50"/>
+				</costs>
+
+				<result type="success">
+					<desc>The smell of crispy bug permeates the ship, but the threat has ended.</desc>
+
+					<weight type="change" amount="-20"/>
+				</result>
+				<result type="failure">
+					<desc>A power conduit explodes, frightening off the bugs but damaging your space batteries.</desc>
+
+					<weight type="change" amount="-20"/>
+					<effect type="ChangeItemAmount" value="Power" amount="-150"/>
+				</result>
+				<result type="success_crit">
+					<desc>Satiated by the power infusion, ancient bio-coded programming awakens in the termites, who begin to perform maintenence on the ship.</desc>
+
+					<weight type="change" amount="-20"/>
+					<effect type="AddBuff" value="NiceTermites"/>
+					<effect type="SetFlag" value="TermiteChain"/>
+				</result>
+				<result type="failure_crit">
+					<desc>A power conduit explodes, frightening off the bugs and setting off a systemic power failure.</desc>
+
+					<weight type="change" amount="-20"/>
+					<effect type="ChangeItemAmount" value="Power" amount="-350"/>
+					<effect type="AddBuff" value="ShipShock"/>
+				</result>
+			</choice>
+
+			<choice id="1">
+				<name>Fly through a Nebula</name>
+				<desc>Nebulas generate electricity, right?</desc>
+				<challenges>
+					<challenge type="Astrogation" level="2" min_fail_percent="10"/>
+				</challenges>
+			</choice>
+
+			<choice id="1">
+				<name>Do nothing.</name>
+				<desc>Doesn't "bug" me lmao</desc>
+			</choice>
+
+			<choice>
+				<name>Let 'The Gleeber' handle it.</name>
+				<desc>GLEEB IT!</desc>
+				<triggers>
+					<trigger type="Artifact" value="Gleeber" amount="1"/>
+				</triggers>	
+				<costs>
+					<cost item="Gleeber" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>The termites are gleebed to within an inch of their lives, and their stunned bodies drift away.</desc>
+
+					<weight type="change" amount="-20"/>
+					<effect type="SetFlag" value="gleebed"/>
+				</result>
+			</choice>
+
+			<result id="1" type="success">				
+				<desc>Eventually the bugs eat their fill and leave.</desc>
+				<never_again>true</never_again>
+				
+				<weight type="change" amount="-20"/>
+				<effect type="ChangeItemAmount" value="Power" amount="-350"/>
+			</result>
+
+			<result id="1" type="failure">
+				<desc>Stimulated by the nebula, the churlish insects go wild on your energies.</desc>
+
+				<weight type="set" amount="0"/>
+				<sleep_for>6</sleep_for>
+			</result>
+
+		</choices>
+	</event>
+-->
+</events>
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+
+
+
+<challenge type="Astrogation" level="2" min_fail_percent="10"/>
+
+<weight>1</weight>
+
+<weight_per_turn>1</weight_per_turn>
+<weight_per_turn_percent>1</weight_per_turn_percent>
+
+<weight_per_turn amount="1"/>
+<weight_per_turn percent="-20"/>
+
+<trigger logic="NOT" type="Item" value="Power" amount="10"/>
+
+<cost item="Power" amount="50"/>
+<cost item="Power" percent="20"/>
+
+<results type="failure_crit">
+	<desc>A power conduit explodes, frightening off the bugs and setting off a systemic power failure.</desc>
+	
+	<weight type="change" amount="30"/>
+	<weight type="change" percent="20"/>
+	<weight type="set" amount="10"/>
+
+	<effect type="ChangeItemAmount" value="Power" amount="-350"/>
+	<effect type="ChangeItemAmount" value="People" percent="-20"/>
+</results>
+
+<listeners>
+	<listener listenFor="VerminDeflectorDecay">
+		<weight type="change" amount="30"/>
+	</listener>
+</listeners>
+
+-->

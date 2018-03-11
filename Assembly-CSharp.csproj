@@ -52,7 +52,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\managers\GameEventManager.cs" />
+     <Compile Include="Assets\Scripts\managers\ItemManager.cs" />
      <Compile Include="Assets\Scripts\managers\UIManager.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Challenge.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Choice.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Cost.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\GameEvent.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Listener.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Result.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\ResultEffect.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\Trigger.cs" />
+     <Compile Include="Assets\Scripts\model\gameevents\WeightChange.cs" />
+     <Compile Include="Assets\Scripts\model\items\Item.cs" />
      <Compile Include="Assets\Scripts\model\Ship.cs" />
      <Compile Include="Assets\Scripts\states\ConclusionState.cs" />
      <Compile Include="Assets\Scripts\states\CreationState.cs" />
@@ -62,11 +74,15 @@
      <Compile Include="Assets\Scripts\tools\states\GameState.cs" />
      <Compile Include="Assets\Scripts\tools\states\GameUIState.cs" />
      <Compile Include="Assets\Scripts\tools\states\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\tools\util\IntNull.cs" />
+     <Compile Include="Assets\Scripts\tools\util\WeightedPool.cs" />
+     <Compile Include="Assets\Scripts\tools\xml\XMLHelper.cs" />
      <Compile Include="Assets\Scripts\ui\ConclusionUI.cs" />
      <Compile Include="Assets\Scripts\ui\CreationUI.cs" />
      <Compile Include="Assets\Scripts\ui\EventUI.cs" />
      <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
      <Compile Include="Assets\Scripts\ui\StartUI.cs" />
+     <None Include="Assets\Resources\XML\events.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
