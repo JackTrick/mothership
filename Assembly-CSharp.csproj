@@ -80,8 +80,11 @@
      <Compile Include="Assets\Scripts\ui\ConclusionUI.cs" />
      <Compile Include="Assets\Scripts\ui\CreationUI.cs" />
      <Compile Include="Assets\Scripts\ui\EventUI.cs" />
+     <Compile Include="Assets\Scripts\ui\InventoryUI.cs" />
      <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
      <Compile Include="Assets\Scripts\ui\StartUI.cs" />
+     <None Include="Assets\Fonts\voiceactivatedcapsbb_ot\fontinfo.txt" />
+     <None Include="Assets\Fonts\voiceactivatedbb_ot\fontinfo.txt" />
      <None Include="Assets\Resources\XML\events.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

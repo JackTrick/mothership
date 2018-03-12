@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: b684427962b742b40a4d15300d697095
+timeCreated: 1520814028
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Voice Activated Caps BB
+  fontNames:
+  - Voice Activated Caps BB
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4e43e3b2ef67b7840a7cad29a349c212, type: 3}
+  - {fileID: 12800000, guid: 2247792f3dd6b4c4bad4adca8869e433, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

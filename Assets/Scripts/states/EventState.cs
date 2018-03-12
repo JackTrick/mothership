@@ -25,6 +25,7 @@ public class EventState : GameUIState {
 		eventUI_ = UI.GetComponent<EventUI> ();
 
 		GameEvent gameEvent = GameEventManager.Instance.SpawnEvent();
+		eventUI_.RenderEvent (gameEvent);
 	}
 
 	override public void OnExit() {

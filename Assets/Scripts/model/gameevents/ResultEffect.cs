@@ -23,11 +23,13 @@ public class ResultEffect
 		ChangeItemProducer,
 		SetItemCap,
 		ChangeItemCap,
+		SetName,
 		EndGame
 	};
 
 	private ResultEffectType type_;
 	private string value_;
+	private string name_;
 	private IntNull amount_;
 	private IntNull percent_;
 	private IntNull turnsToProduce_;
@@ -70,6 +72,8 @@ public class ResultEffect
 				type_ = ResultEffectType.ChangeItemCap;
 			} else if (tempString == "endgame") {
 				type_ = ResultEffectType.EndGame;
+			} else if (tempString == "setname") {
+				type_ = ResultEffectType.SetName;
 			} else {
 				success = false;
 				reason = "invalid type tag: '" + tempString + "' for result effect";
@@ -81,6 +85,9 @@ public class ResultEffect
 
 		if (success) {
 			success = XMLHelper.SetUniqueStringFromAttribute (info, ref value_, "value");
+		}
+		if (success) {
+			success = XMLHelper.SetUniqueStringFromAttribute (info, ref value_, "name");
 		}
 		if (success) {
 			success = XMLHelper.SetUniqueIntFromAttribute (info, ref amount_, "amount");
