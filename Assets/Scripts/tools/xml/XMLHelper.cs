@@ -22,10 +22,14 @@ public class XMLHelper
 		}
 	}
 
-	public static bool SetUniqueString(XmlAttribute xmlAttr, ref string uniqueString, string name)
+	public static bool SetUniqueString(XmlAttribute xmlAttr, ref string uniqueString, string name, bool forceLower)
 	{
 		if (uniqueString == null) {
-			uniqueString = (xmlAttr.Value).ToLower();
+			if (forceLower) {
+				uniqueString = (xmlAttr.Value).ToLower();
+			} else {				
+				uniqueString = (xmlAttr.Value);
+			}
 			return true;
 		} else {
 			Debug.LogError ("found multiple instances of <" + name + ">" + xmlAttr.OuterXml);
@@ -33,13 +37,13 @@ public class XMLHelper
 		}
 	}
 
-	public static bool SetUniqueStringFromAttribute(XmlNode info, ref string uniqueString, string attributeName)
+	public static bool SetUniqueStringFromAttribute(XmlNode info, ref string uniqueString, string attributeName, bool forceLower = true)
 	{
 		XmlAttribute xmlAttr = info.Attributes [attributeName];
 		if (xmlAttr == null) {
 			return true;
 		} 
-		return XMLHelper.SetUniqueString (xmlAttr, ref uniqueString, attributeName);
+		return XMLHelper.SetUniqueString (xmlAttr, ref uniqueString, attributeName, forceLower);
 	}
 
 	public static bool SetUniqueInt(XmlAttribute xmlAttr, ref IntNull uniqueInt, string name)

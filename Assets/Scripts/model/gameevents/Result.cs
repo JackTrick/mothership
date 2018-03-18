@@ -61,6 +61,7 @@ public class Result
 	public ResultType Type { get { return type_; } }
 
 	private string desc_;
+	public string Desc { get { return desc_; } }
 
 	private WeightChange weightChange_;
 
@@ -68,7 +69,8 @@ public class Result
 
 	private IntNull sleepFor_;
 
-	List<ResultEffect> effects_;
+	private List<ResultEffect> effects_;
+	public List<ResultEffect> Effects { get { return effects_; } }
 
 	public Result()
 	{

@@ -15,8 +15,11 @@ using System.Xml.Serialization;
 public class Cost
 {
 	private string itemType_;
+	public string ItemType { get { return itemType_; } }
 	private IntNull amount_;
+	public IntNull Amount { get { return amount_; } }
 	private IntNull percent_;
+	public IntNull Percent { get { return percent_; } }
 
 	public Cost()
 	{

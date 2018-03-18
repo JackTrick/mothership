@@ -17,6 +17,7 @@ public class GameUIState : GameState
 	{
 		if (ui_ == null) {
 			ui_ = GameObject.Instantiate (Resources.Load (prefabName_) as GameObject, UIManager.Instance.transform);
+			ui_.transform.SetAsFirstSibling ();
 		}
 	}
 

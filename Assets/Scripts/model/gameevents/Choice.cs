@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System;
 using System.Linq;
 
+
 public class Choice
 {
 	/*
@@ -96,12 +97,19 @@ public class Choice
 	public string ID { get { return id_; } }
 
 	private string name_;
+	public string Name { get { return name_; } } 
 	private string desc_;
+	public string Desc { get { return desc_; } } 
 
 	private List<Cost> costs_;
+	public List<Cost> Costs { get { return costs_; } }
 	private List<Trigger> triggers_;
 	private List<Challenge> challenges_;
 
+	private string lastChallengeString_;
+	public string LastChallengeResultString { get { return lastChallengeString_; } }
+	private Result lastResult_;
+	public Result LastResult { get { return lastResult_; } }
 	private Result resultAny_;
 	private Result resultSuccess_;
 	private Result resultFailure_;
@@ -113,16 +121,45 @@ public class Choice
 
 	}
 
+	public string GetEffectsString()
+	{
+		
+		string ret = "";
+		if (costs_ != null) {
+			for (int i = 0; i < costs_.Count; ++i) {
+				Cost cost = costs_ [i];
+				if (i > 0) {
+					ret += ", ";
+				}
+				if (cost.Percent.Defined) {
+					ret += "-" + cost.Percent + "%";
+				}
+				ret += " " + cost.ItemType;
+			}
+		}
+		return ret;
+
+	}
+
 	public Choice(XmlNode info, string eventID = "")
 	{
 		LoadFromXML (info, eventID);
+		if (costs_ == null) {
+			costs_ = new List<Cost> ();
+		}
+		if (triggers_ == null) {
+			triggers_ = new List<Trigger> ();
+		}
+		if (challenges_ == null) {
+			challenges_ = new List<Challenge> ();
+		}
 	}
 
 	private void LoadFromXML(XmlNode info, string eventID)
 	{
 		bool success = true;
 		string reason = "";
-
+		
 		XmlAttribute xmlAttr = info.Attributes ["id"];
 		if (xmlAttr != null) {
 			id_ = XMLHelper.FetchString (xmlAttr);
@@ -209,6 +246,72 @@ public class Choice
 		return success;
 	}
 
+	public void PerformChallengeSetResult()
+	{
+		lastResult_ = null;
+		lastChallengeString_ = "";
+
+		bool success = true;
+		bool crit = true;
+
+		if (challenges_ != null) {
+			foreach (Challenge challenge in challenges_) {
+				string type = challenge.Type;
+				IntNull level = challenge.Level;
+				int levelVal = 0;
+				if (level.Defined) {
+					levelVal = level.Value;
+				}
+				// TODO: implement min fail percent
+				IntNull minFail = challenge.MinFailPercent;
+
+				int itemAmount = ItemManager.Instance.GetItemAmount (type);
+				int diceResult = UnityEngine.Random.Range (1, 6) + UnityEngine.Random.Range (1, 6) + itemAmount - levelVal;
+				if (diceResult <= 2) {
+					success = false;
+					crit = true && crit;
+				} else if (diceResult <= 6) {
+					success = false;
+					crit = false;
+				} else if (diceResult <= 9) {
+					success = true && success;
+					crit = false;
+				} else {
+					success = true && success;
+					crit = true && crit;
+				}
+			}
+
+			if (challenges_.Count > 0) {
+				if (crit) {
+					lastChallengeString_ = "Critical ";
+				}
+				if (success) {
+					lastChallengeString_ += "Success";
+				} else {
+					lastChallengeString_ += "Miss";
+				}
+			}
+		}
+
+		if (success) {
+			if (crit && resultSuccessCrit_ != null) {
+				lastResult_ = resultSuccessCrit_;
+			} else if (resultSuccess_ != null) {
+				lastResult_ = resultSuccess_;
+			} else {
+				lastResult_ = resultAny_;
+			}
+		} else {
+			if (crit && resultFailureCrit_ != null) {
+				lastResult_ = resultFailureCrit_;
+			} else if (resultFailure_ != null) {
+				lastResult_ = resultSuccess_;
+			} else {
+				lastResult_ = resultAny_;
+			}
+		}
+	}
 }
 
 

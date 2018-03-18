@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventUI : MonoBehaviour
 {
-	private GameEvent gameEvent_;
+	[SerializeField]
+	private GameEventUI gameEventUI_;
+	//private InventoryUI inventoryUI_;
 
 	public EventUI()
 	{
@@ -18,7 +21,13 @@ public class EventUI : MonoBehaviour
 
 	public void RenderEvent(GameEvent gameEvent)
 	{
-		gameEvent_ = gameEvent;
+		gameEventUI_.Render (gameEvent);
+		//gameEvent_ = gameEvent;
+	}
+
+	public void MakeEventChoice(Choice choice)
+	{
+		gameEventUI_.MakeEventChoice(choice);
 	}
 }
 

@@ -28,18 +28,83 @@ public class ResultEffect
 	};
 
 	private ResultEffectType type_;
+	public ResultEffectType Type { get { return type_; } }
 	private string value_;
+	public string Value { get { return value_; } }
 	private string name_;
+	public string Name { get { return name_; } }
 	private IntNull amount_;
+	public IntNull Amount { get { return amount_; } }
 	private IntNull percent_;
+	public IntNull Percent{ get { return percent_; } }
 	private IntNull turnsToProduce_;
+	public IntNull TurnsToProduce { get { return turnsToProduce_; } }
 	private bool hidden_ = false;
+	public bool Hidden { get { return hidden_; } }
 
 	public ResultEffect (XmlNode info)
 	{
 		LoadFromXML (info);
 	}
 
+	public string ReadableString()
+	{
+		string ret = "";
+		if (hidden_) {
+			return ret;
+		}
+
+		int amount = 0;
+		int turnsToProduce = 0;
+
+		if (amount_.Defined) {
+			amount = amount_.Value;
+		}
+
+		if (turnsToProduce_.Defined) {
+			turnsToProduce = turnsToProduce_.Value;
+		}
+
+		switch (type_) {
+		case ResultEffectType.SetItemAmount:
+			ret += value_ + " set to " + amount;
+			break;
+		case ResultEffectType.ChangeItemAmount:			
+			if (amount > 1) {
+				ret += "+";
+			}
+			ret += amount + " " + value_;
+			break;
+		case ResultEffectType.AddBuff:
+			ret += "gained buff: " + value_;
+			break;
+		case ResultEffectType.SetFlag:
+		case ResultEffectType.ClearFlag:
+			break;
+		case ResultEffectType.SetItemProducer:
+			if (amount > 1) {
+				ret += "+";
+			}
+			ret += amount + " " + value_ + " every " + turnsToProduce;
+			break;
+		case ResultEffectType.ChangeItemProducer:
+			if (amount > 1) {
+				ret += "+";
+			}
+			ret += amount + " to " + value_ + " every " + turnsToProduce;
+			break;
+		case ResultEffectType.SetItemCap:
+			ret += value_ + " cap set to " + amount;
+			break;
+		case ResultEffectType.ChangeItemCap:
+			if (amount > 1) {
+				ret += "+";
+			}
+			ret += amount + " to " + value_ + " cap";
+			break;
+		}
+		return ret;
+	}
 	private bool LoadFromXML(XmlNode info)
 	{
 		bool success = true;
@@ -87,7 +152,7 @@ public class ResultEffect
 			success = XMLHelper.SetUniqueStringFromAttribute (info, ref value_, "value");
 		}
 		if (success) {
-			success = XMLHelper.SetUniqueStringFromAttribute (info, ref value_, "name");
+			success = XMLHelper.SetUniqueStringFromAttribute (info, ref name_, "name", false);
 		}
 		if (success) {
 			success = XMLHelper.SetUniqueIntFromAttribute (info, ref amount_, "amount");

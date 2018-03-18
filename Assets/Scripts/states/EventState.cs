@@ -39,4 +39,15 @@ public class EventState : GameUIState {
 	override public void Update(float delta) {
 		//Debug.Log ("Update in Start State");
 	}
+
+	public void NextEvent()
+	{
+		GameEvent gameEvent = GameEventManager.Instance.SpawnEvent();
+		eventUI_.RenderEvent (gameEvent);
+	}
+
+	public void MakeEventChoice(Choice choice)
+	{
+		eventUI_.MakeEventChoice(choice);
+	}
 }

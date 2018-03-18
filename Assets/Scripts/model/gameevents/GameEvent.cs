@@ -9,9 +9,14 @@ using System.Linq;
 public class GameEvent {
 
 	private string id_;
+	public string Id { get { return id_; } }
 	private string name_;
+	public string Name { get { return name_; } }
 	private string desc_;
+	public string Desc { get { return desc_; } } 
 
+	private string imageName_;
+	public string ImageName { get { return imageName_; } }
 	// related to spawning of the event
 	private bool occurOnlyOnce_ = false;
 	public bool OccurOnlyOnce { get { return occurOnlyOnce_; } }
@@ -29,6 +34,7 @@ public class GameEvent {
 	private List<Trigger> triggers_;
 	private List<Listener> listeners_;
 	private List<Choice> choices_;
+	public List<Choice> Choices { get { return choices_; } } 
 
 	// related to things that happened to the event after it was active
 	private bool neverSpawnAgain_ = false;
@@ -64,6 +70,8 @@ public class GameEvent {
 				success = XMLHelper.SetUniqueString (xmlItem, ref name_, "name");
 			} else if (xmlItem.Name == "desc") {
 				success = XMLHelper.SetUniqueString (xmlItem, ref desc_, "desc");
+			} else if (xmlItem.Name == "image") {
+				success = XMLHelper.SetUniqueString (xmlItem, ref imageName_, "image");
 			} else if (xmlItem.Name == "triggers") {
 				success = XMLHelper.LoadXmlList (xmlItem, ref triggers_, "triggers", "trigger", id_);
 			} else if (xmlItem.Name == "only_once") {

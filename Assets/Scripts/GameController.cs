@@ -119,6 +119,8 @@ public class GameController : MonoBehaviour {
 	private Ship ship_;
 	public Ship PlayerShip { get { return ship_; } }
 
+	public InventoryUI inventoryUI_;
+
 	// Use this for initialization
 	void Start () {
 		stateMachine_ = new StateMachine ();
@@ -166,11 +168,17 @@ public class GameController : MonoBehaviour {
 
 	public void ConfirmEventChoice()
 	{
+		/*
 		ship_.ChangePopulation (-10000);
 		if (ship_.Population == 0) {
 			ShowConclusion ();
 		} else {
 			ShowShipStatus ();
+		}
+		*/
+		if (stateMachine_.currentState is EventState) {
+			EventState state = (EventState)stateMachine_.currentState;
+			state.NextEvent ();
 		}
 	}
 
@@ -190,5 +198,96 @@ public class GameController : MonoBehaviour {
 	{
 		stateMachine_.PopAll ();
 		stateMachine_.PushState (new StartState ());
+	}
+
+	/******
+	 * 
+	 * 
+	 ******/
+
+	public void MakeEventChoice(Choice choice)
+	{
+		if (stateMachine_.currentState is EventState) {
+			EventState state = (EventState)stateMachine_.currentState;
+
+			choice.PerformChallengeSetResult ();
+			// TODO deduct costs for the choice, update the inventory
+			DeductCosts(choice);
+			ExecuteResult (choice.LastResult);
+			state.MakeEventChoice(choice);
+		}
+	}
+
+	private void DeductCosts(Choice choice)
+	{
+		List<Cost> costs = choice.Costs;
+		foreach (Cost cost in costs) {
+			bool percent = cost.Percent.Defined;
+			int amount = 0;
+			if(percent){
+				amount = cost.Percent.Value;
+			}
+			else{
+				amount = cost.Amount.Value;
+			}
+
+			ItemManager.Instance.ChangeItemAmount (cost.ItemType, amount, percent);
+		}
+		InventoryChanged ();
+	}
+
+	private void ExecuteResult(Result result)
+	{
+		List<ResultEffect> effects = result.Effects;
+		foreach(ResultEffect effect in effects)
+		{
+			bool percent = effect.Percent.Defined;
+			int amount = 0;
+			if(percent){
+				amount = effect.Percent.Value;
+			}
+			else{
+				amount = effect.Amount.Value;
+			}
+
+			switch(effect.Type){
+			case ResultEffect.ResultEffectType.SetItemAmount:
+				ItemManager.Instance.SetItemAmount(effect.Value, amount);
+				break;
+			case ResultEffect.ResultEffectType.ChangeItemAmount:
+				ItemManager.Instance.ChangeItemAmount(effect.Value, amount, percent);
+				break;
+			case ResultEffect.ResultEffectType.AddBuff:
+				// TODO
+				break;
+			case ResultEffect.ResultEffectType.SetName:
+				GameEventManager.Instance.SetName (effect.Value, effect.Name);
+				break;
+			case ResultEffect.ResultEffectType.SetFlag:
+				GameEventManager.Instance.SetFlag(effect.Value);
+				break;
+			case ResultEffect.ResultEffectType.ClearFlag:
+				GameEventManager.Instance.ClearFlag(effect.Value);
+				break;
+			case ResultEffect.ResultEffectType.SetItemProducer:
+				ItemManager.Instance.SetItemProducer(effect.Value, effect.Amount.Value, effect.TurnsToProduce.Value);
+				break;
+			case ResultEffect.ResultEffectType.ChangeItemProducer:
+				ItemManager.Instance.ChangeItemProducer(effect.Value, effect.Amount.Value, effect.TurnsToProduce.Value);
+				break;
+			case ResultEffect.ResultEffectType.SetItemCap:
+				ItemManager.Instance.SetItemCap(effect.Value, amount, percent);
+				break;
+			case ResultEffect.ResultEffectType.ChangeItemCap:
+				ItemManager.Instance.ChangeItemCap(effect.Value, amount, percent);
+				break;
+			}
+		}
+		InventoryChanged ();
+	}
+
+	public void InventoryChanged()
+	{
+		inventoryUI_.RenderInventory();
 	}
 }

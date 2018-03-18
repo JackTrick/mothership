@@ -3,8 +3,8 @@
 	<!-- Intro events, before we get into space -->
 	<event id="start00">
 		<name>What is your story?</name>
-		<desc>The hum of ancient processors whirring to life. You can see nothing, but you sense a voice.
-			"You escaped to space after the Destruction. Who were you?"</desc>
+		<desc>The hum of ancient processors whirring to life. You can see nothing, but you sense a voice.\n\n"You escaped to space after the Destruction. Who were you?"</desc>
+		<image>planetsurface</image>
 
 		<only_once>true</only_once>
 		<mandatory>true</mandatory>
@@ -17,19 +17,19 @@
 
 				<result>
 					<desc>You remember your name. Void Watcher.</desc>
-					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
-					<effect type="setitemamount" value="power" amount="100"/>
-					<effect type="setitemamount" value="missiles" amount="1"/>
-					<effect type="setitemamount" value="science crew" amount="6"/>
-					<effect type="setitemamount" value="tactical crew" amount="2"/>
+					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
+					<effect type="setitemamount" value="power" amount="100" hidden="true"/>
+					<effect type="setitemamount" value="missiles" amount="1" hidden="true"/>
+					<effect type="setitemamount" value="science crew" amount="6" hidden="true"/>
+					<effect type="setitemamount" value="tactical crew" amount="2" hidden="true"/>
 
-					<effect type="setitemcap" value="power" amount="200"/>
-					<effect type="setitemcap" value="missiles" amount="2"/>
+					<effect type="setitemcap" value="power" amount="200" hidden="true"/>
+					<effect type="setitemcap" value="missiles" amount="2" hidden="true"/>
 
-					<effect type="setname" value="shipname" name="Void Watcher"/>
+					<effect type="setname" value="shipname" name="Void Watcher" hidden="true"/>
 					
-					<effect type="setitemproducer" value="power" amount="-4" turns_to_produce="1"/>
-					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="power" amount="-4" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 			<choice>
@@ -38,19 +38,19 @@
 
 				<result>
 					<desc>You remember your name. Khonsu.</desc>
-					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
-					<effect type="setitemamount" value="power" amount="80"/>
-					<effect type="setitemamount" value="missiles" amount="3"/>
-					<effect type="setitemamount" value="science crew" amount="2"/>
-					<effect type="setitemamount" value="tactical crew" amount="8"/>
+					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
+					<effect type="setitemamount" value="power" amount="80" hidden="true"/>
+					<effect type="setitemamount" value="missiles" amount="3" hidden="true"/>
+					<effect type="setitemamount" value="science crew" amount="2" hidden="true"/>
+					<effect type="setitemamount" value="tactical crew" amount="8" hidden="true"/>
 
-					<effect type="setitemcap" value="power" amount="120"/>
-					<effect type="setitemcap" value="missiles" amount="5"/>
+					<effect type="setitemcap" value="power" amount="120" hidden="true"/>
+					<effect type="setitemcap" value="missiles" amount="5" hidden="true"/>
 
 					<effect type="setname" value="shipname" name="Khonsu"/>
 
-					<effect type="setitemproducer" value="power" amount="-6" turns_to_produce="1"/>
-					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="power" amount="-6" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 			<choice>
@@ -59,19 +59,19 @@
 
 				<result>
 					<desc>You remember your name. The Gleeber.</desc>
-					<effect type="setitemamount" value="distance from destruction" amount="0"/>		
-					<effect type="setitemamount" value="power" amount="50"/>
-					<effect type="setitemamount" value="missiles" amount="0"/>
-					<effect type="setitemamount" value="science crew" amount="10"/>
-					<effect type="setitemamount" value="tactical crew" amount="2"/>
+					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
+					<effect type="setitemamount" value="power" amount="50" hidden="true"/>
+					<effect type="setitemamount" value="missiles" amount="0" hidden="true"/>
+					<effect type="setitemamount" value="science crew" amount="10" hidden="true"/>
+					<effect type="setitemamount" value="tactical crew" amount="2" hidden="true"/>
 
-					<effect type="setitemcap" value="power" amount="50"/>
-					<effect type="setitemcap" value="missiles" amount="0"/>
+					<effect type="setitemcap" value="power" amount="50" hidden="true"/>
+					<effect type="setitemcap" value="missiles" amount="0" hidden="true"/>
 
-					<effect type="setname" value="shipname" name="Gleeber"/>
+					<effect type="setname" value="shipname" name="The Gleeber"/>
 
-					<effect type="setitemproducer" value="power" amount="-3" turns_to_produce="1"/>
-					<effect type="setitemproducer" value="turns" amount="1" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="power" amount="-3" turns_to_produce="1" hidden="true"/>
+					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 		</choices>
@@ -80,6 +80,7 @@
 	<event id="start01">
 		<name>The Event</name>
 		<desc>Suddenly you're back on the day it happened. Calamity. Destruction. The planet is in ruins. You receive a distress call from a small colony ship. Her name is Open Arms. Her crew needs help.</desc>
+		<image>planetattack</image>
 
 		<triggers>
 			<trigger value="start00"/>
@@ -92,12 +93,11 @@
 		<choices>
 			<choice>
 				<name>Take the Crew</name>
-				<desc>You find Open Arms under attack. You transfer over a few of her crew before she is destroyed. You feel the increased strain on your power cells. You must escape.</desc>
+				<desc>Life is to be preserved. This was your purpose.</desc>
 				<result>
-					<desc></desc>
+					<desc>You find Open Arms under attack. You transfer over a few of her crew before she is destroyed. You feel the increased strain on your power cells. You must escape.</desc>
 					<effect type="setitemamount" value="settlers" amount="10"/>
-					<effect type="setitemcap" value="settlers" amount="10"/>
-					<effect type="changeitemproducer" value="power" amount="-1" turns_to_produce="1"/>
+					<effect type="changeitemproducer" value="power" amount="-1"/>
 					
 					<effect type="setflag" value="took the settlers"/>
 

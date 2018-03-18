@@ -11,8 +11,11 @@ using System.Xml.Serialization;
 public class Challenge
 {
 	private string type_;
+	public string Type { get { return type_; } }
 	private IntNull level_;
+	public IntNull Level { get { return level_; } }
 	private IntNull minFailPercent_;
+	public IntNull MinFailPercent { get { return minFailPercent_; } }
 
 	public Challenge()
 	{

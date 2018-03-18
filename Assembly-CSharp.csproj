@@ -77,10 +77,13 @@
      <Compile Include="Assets\Scripts\tools\util\IntNull.cs" />
      <Compile Include="Assets\Scripts\tools\util\WeightedPool.cs" />
      <Compile Include="Assets\Scripts\tools\xml\XMLHelper.cs" />
+     <Compile Include="Assets\Scripts\ui\ChoiceUI.cs" />
      <Compile Include="Assets\Scripts\ui\ConclusionUI.cs" />
      <Compile Include="Assets\Scripts\ui\CreationUI.cs" />
      <Compile Include="Assets\Scripts\ui\EventUI.cs" />
+     <Compile Include="Assets\Scripts\ui\GameEventUI.cs" />
      <Compile Include="Assets\Scripts\ui\InventoryUI.cs" />
+     <Compile Include="Assets\Scripts\ui\ItemPanelUI.cs" />
      <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
      <Compile Include="Assets\Scripts\ui\StartUI.cs" />
      <None Include="Assets\Fonts\voiceactivatedcapsbb_ot\fontinfo.txt" />
