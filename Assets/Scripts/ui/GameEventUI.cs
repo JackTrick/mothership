@@ -61,7 +61,9 @@ public class GameEventUI : MonoBehaviour
 	public void Render(GameEvent gameEvent)
 	{
 		resultUI_.SetActive (false);
-		choices_.transform.DetachChildren ();
+		foreach (Transform child in choices_.transform) {
+			GameObject.Destroy (child.gameObject);
+		}
 
 		gameEvent_ = gameEvent;
 		title_.text = gameEvent.Name;
@@ -86,13 +88,18 @@ public class GameEventUI : MonoBehaviour
 		foreach(ChoiceUI choiceUI in choices_.GetComponentsInChildren<ChoiceUI>())
 		{
 			if (!choiceUI.IsChoice (choice)) {
-				choiceUI.transform.SetParent (null);
+				GameObject.Destroy (choiceUI.gameObject);
 			}
 
 		}
 		resultUI_.SetActive (true);
 
-		resultTitle_.text = choice.LastChallengeResultString;
+		if (choice.LastChallengeResultString != "") {
+			resultTitle_.gameObject.SetActive (true);
+			resultTitle_.text = choice.LastChallengeResultString;
+		} else {
+			resultTitle_.gameObject.SetActive (false);
+		}
 		Result result = choice.LastResult;
 		resultDesc_.text = result.Desc;
 
