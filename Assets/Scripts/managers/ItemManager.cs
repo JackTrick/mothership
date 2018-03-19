@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class ItemManager : MonoBehaviour
 	private static ItemManager instance_;
 	public static ItemManager Instance { get { return instance_; } }
 
+	// to save
 	Dictionary<string, Item> inventory_;
 	public Dictionary<string, Item> Inventory { get { return inventory_; } }
 
@@ -19,6 +21,40 @@ public class ItemManager : MonoBehaviour
 		inventory_ = new Dictionary<string, Item> ();
 		hidden_ = new Dictionary<string, bool> ();
 		// TODO, implement production
+	}
+
+	public void ResetSave()
+	{
+		inventory_ = new Dictionary<string, Item> ();
+	}
+
+	public void SetInventoryItem(string itemType, Item item)
+	{
+		inventory_.Add (itemType, item);
+	}
+
+	public bool SaveProgress(StreamWriter writer)
+	{
+		writer.WriteLine ("[inventory]");
+		Item item;
+		foreach (KeyValuePair<string, Item> entry in inventory_) {
+			item = entry.Value;
+			writer.WriteLine (entry.Key);
+			writer.WriteLine (item.Amount);
+			writer.WriteLine (item.Cap.Defined);
+			writer.WriteLine (item.Cap.Value);
+			writer.WriteLine (item.ProducePer.Defined);
+			writer.WriteLine (item.ProducePer.Value);
+			writer.WriteLine (item.TurnsToProduce.Defined);
+			writer.WriteLine (item.TurnsToProduce.Value);
+			writer.WriteLine (item.TurnCounter);
+		}
+		return true;
+	}
+
+	public void Reset()
+	{
+		inventory_.Clear ();
 	}
 
 	public void SetItemHidden(string itemName)

@@ -36,6 +36,7 @@ public class Item
 	public IntNull TurnsToProduce { get { return turnsToProduce_; } set { turnsToProduce_ = value; } }
 
 	private int turnCounter_;
+	public int TurnCounter { get { return turnCounter_; } set { turnCounter_ = value; } }
 
 	public Item (string id)
 	{

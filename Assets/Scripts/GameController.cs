@@ -119,17 +119,23 @@ public class GameController : MonoBehaviour {
 	private Ship ship_;
 	public Ship PlayerShip { get { return ship_; } }
 
+	private bool gameOver_;
+
 	public InventoryUI inventoryUI_;
 
 	// Use this for initialization
 	void Start () {
 		stateMachine_ = new StateMachine ();
 
+		gameOver_ = false;
+
 		ship_ = new Ship ();
 		GameEventManager.Instance.LoadEvents ();
 
 		//stateMachine_.PushState (new StartState ());
+
 		stateMachine_.PushState (new EventState ());
+		SaveManager.Instance.LoadDefaultFile();
 	}
 	
 	// Update is called once per frame
@@ -177,9 +183,20 @@ public class GameController : MonoBehaviour {
 		}
 		*/
 		if (stateMachine_.currentState is EventState) {
-			EventState state = (EventState)stateMachine_.currentState;
-			state.NextEvent ();
+			if (!gameOver_) {
+				EventState state = (EventState)stateMachine_.currentState;
+				state.NextEvent ();
+			} else {
+				ShowConclusion ();
+			}
 		}
+	}
+
+	public void GameLoaded()
+	{
+		stateMachine_.PopAll ();
+		stateMachine_.PushState (new EventState ());
+		InventoryChanged ();
 	}
 
 	public void ShowShipStatus()
@@ -196,8 +213,14 @@ public class GameController : MonoBehaviour {
 
 	public void ReturnToStart()
 	{
+		ItemManager.Instance.Reset ();
+		InventoryChanged ();
+		inventoryUI_.Reset ();
+		GameEventManager.Instance.Reset ();
+
+
 		stateMachine_.PopAll ();
-		stateMachine_.PushState (new StartState ());
+		stateMachine_.PushState (new EventState ());
 	}
 
 	/******
@@ -213,8 +236,8 @@ public class GameController : MonoBehaviour {
 			choice.PerformChallengeSetResult ();
 			// TODO deduct costs for the choice, update the inventory
 			DeductCosts(choice);
-			ExecuteResult (choice.LastResult);
-			state.MakeEventChoice(choice);
+			gameOver_ = ExecuteResult (choice.LastResult);
+			state.MakeEventChoice(choice, gameOver_);
 		}
 	}
 
@@ -228,7 +251,7 @@ public class GameController : MonoBehaviour {
 				amount = cost.Percent.Value;
 			}
 			else{
-				amount = cost.Amount.Value;
+				amount = -1*cost.Amount.Value;
 			}
 
 			ItemManager.Instance.ChangeItemAmount (cost.ItemType, amount, percent);
@@ -236,9 +259,12 @@ public class GameController : MonoBehaviour {
 		InventoryChanged ();
 	}
 
-	private void ExecuteResult(Result result)
+	private bool ExecuteResult(Result result)
 	{
 		List<ResultEffect> effects = result.Effects;
+
+		bool gameOver = false;
+
 		foreach(ResultEffect effect in effects)
 		{
 			bool percent = effect.Percent.Defined;
@@ -281,9 +307,14 @@ public class GameController : MonoBehaviour {
 			case ResultEffect.ResultEffectType.ChangeItemCap:
 				ItemManager.Instance.ChangeItemCap(effect.Value, amount, percent);
 				break;
+			case ResultEffect.ResultEffectType.EndGame:
+				gameOver = true;
+				break;
 			}
 		}
 		InventoryChanged ();
+
+		return gameOver;
 	}
 
 	public void InventoryChanged()

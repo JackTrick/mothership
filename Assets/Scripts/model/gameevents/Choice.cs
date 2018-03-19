@@ -106,15 +106,16 @@ public class Choice
 	private List<Trigger> triggers_;
 	private List<Challenge> challenges_;
 
-	private string lastChallengeString_;
-	public string LastChallengeResultString { get { return lastChallengeString_; } }
-	private Result lastResult_;
-	public Result LastResult { get { return lastResult_; } }
 	private Result resultAny_;
 	private Result resultSuccess_;
 	private Result resultFailure_;
 	private Result resultSuccessCrit_;
 	private Result resultFailureCrit_;
+
+	private string lastChallengeString_;
+	public string LastChallengeResultString { get { return lastChallengeString_; } }
+	private Result lastResult_;
+	public Result LastResult { get { return lastResult_; } }
 
 	public Choice()
 	{
@@ -132,7 +133,9 @@ public class Choice
 					ret += ", ";
 				}
 				if (cost.Percent.Defined) {
-					ret += "-" + cost.Percent + "%";
+					ret += "-" + cost.Percent.Value + "%";
+				} else {
+					ret += (-1*cost.Amount.Value) + "";
 				}
 				ret += " " + cost.ItemType;
 			}
@@ -153,6 +156,29 @@ public class Choice
 		if (challenges_ == null) {
 			challenges_ = new List<Challenge> ();
 		}
+	}
+
+	public bool CanShowChoice()
+	{
+		return GameEventManager.Instance.TriggersTriggered (triggers_);
+	}
+
+	public bool CanAffordChoice()
+	{
+		bool valid = true;
+		int want = 0;
+		int have = 0;
+		foreach (Cost c in costs_) {
+			if (c.Amount.Defined) {
+				want = c.Amount.Value;
+				have = ItemManager.Instance.GetItemAmount (c.ItemType);
+				if (want > have) {
+					return false;
+				}
+			}
+		}
+
+		return valid;
 	}
 
 	private void LoadFromXML(XmlNode info, string eventID)
@@ -256,17 +282,20 @@ public class Choice
 
 		if (challenges_ != null) {
 			foreach (Challenge challenge in challenges_) {
+				
 				string type = challenge.Type;
 				IntNull level = challenge.Level;
 				int levelVal = 0;
 				if (level.Defined) {
 					levelVal = level.Value;
 				}
+
 				// TODO: implement min fail percent
 				IntNull minFail = challenge.MinFailPercent;
 
 				int itemAmount = ItemManager.Instance.GetItemAmount (type);
 				int diceResult = UnityEngine.Random.Range (1, 6) + UnityEngine.Random.Range (1, 6) + itemAmount - levelVal;
+
 				if (diceResult <= 2) {
 					success = false;
 					crit = true && crit;
@@ -284,7 +313,9 @@ public class Choice
 
 			if (challenges_.Count > 0) {
 				if (crit) {
-					lastChallengeString_ = "Critical ";
+					if ((success && resultSuccessCrit_ != null) || (!success && resultFailureCrit_ != null)){
+						lastChallengeString_ = "Critical ";
+					}
 				}
 				if (success) {
 					lastChallengeString_ += "Success";
@@ -306,7 +337,7 @@ public class Choice
 			if (crit && resultFailureCrit_ != null) {
 				lastResult_ = resultFailureCrit_;
 			} else if (resultFailure_ != null) {
-				lastResult_ = resultSuccess_;
+				lastResult_ = resultFailure_;
 			} else {
 				lastResult_ = resultAny_;
 			}

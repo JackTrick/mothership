@@ -37,6 +37,8 @@ public class GameEventUI : MonoBehaviour
 	[SerializeField]
 	private GameObject resultUI_;
 
+	private bool gameOver_ = false;
+
 	public GameEventUI ()
 	{
 	}
@@ -75,15 +77,19 @@ public class GameEventUI : MonoBehaviour
 		}
 
 		foreach (Choice c in gameEvent_.Choices) {
-			ChoiceUI choiceUI = GameObject.Instantiate (Resources.Load<ChoiceUI> ("Prefabs/ChoiceUI"), choices_.transform);
-			choiceUI.Render(c);
+			if (c.CanShowChoice ()) {
+				ChoiceUI choiceUI = GameObject.Instantiate (Resources.Load<ChoiceUI> ("Prefabs/ChoiceUI"), choices_.transform);
+				choiceUI.Render (c);
+			}
 		}
 		//title_ = gameEvent
 	}
 
-	public void MakeEventChoice(Choice choice)
+	public void MakeEventChoice(Choice choice, bool gameOver)
 	{
-		GameEventManager.Instance.SetEventCompleted (gameEvent_.Id);
+		GameEventManager.Instance.SetEventCompleted (gameEvent_);
+		gameOver_ = gameOver;
+
 		//choices_.transform.DetachChildren ();
 		foreach(ChoiceUI choiceUI in choices_.GetComponentsInChildren<ChoiceUI>())
 		{

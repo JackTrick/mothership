@@ -32,13 +32,10 @@ public class GameEvent {
 	private IntNull maxWeight_;
 
 	private List<Trigger> triggers_;
+	public List<Trigger> Triggers { get { return triggers_; } }
 	private List<Listener> listeners_;
 	private List<Choice> choices_;
 	public List<Choice> Choices { get { return choices_; } } 
-
-	// related to things that happened to the event after it was active
-	private bool neverSpawnAgain_ = false;
-	public bool NeverSpawnAgain { get { return neverSpawnAgain_; } set { neverSpawnAgain_ = value; } }
 
 	public GameEvent(XmlNode eventInfo)
 	{ 
@@ -169,38 +166,6 @@ public class GameEvent {
 		}
 
 		return success;
-	}
-
-	// see if this mission is eligible to spawn
-	public bool CanSpawn()
-	{
-		//Debug.LogError ("Checking if " + this + " can spawn");
-		if (NeverSpawnAgain) {
-			return false;
-		}
-
-		bool canSpawn = true;
-		// check triggers
-		if (triggers_ != null) {
-			foreach (Trigger trigger in triggers_) {
-				switch (trigger.Logic) {
-				case Trigger.TriggerLogic.AND:
-					canSpawn = canSpawn && trigger.Triggered ();
-					break;
-				case Trigger.TriggerLogic.OR:
-					canSpawn = canSpawn || trigger.Triggered ();
-					break;
-				case Trigger.TriggerLogic.NOT:
-				case Trigger.TriggerLogic.NOTAND:
-					canSpawn = canSpawn && !trigger.Triggered ();
-					break;
-				case Trigger.TriggerLogic.NOTOR:
-					canSpawn = canSpawn || !trigger.Triggered ();
-					break;
-				}
-			}
-		}
-		return canSpawn;
 	}
 
 	public override string ToString(){

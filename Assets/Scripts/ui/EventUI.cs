@@ -25,9 +25,9 @@ public class EventUI : MonoBehaviour
 		//gameEvent_ = gameEvent;
 	}
 
-	public void MakeEventChoice(Choice choice)
+	public void MakeEventChoice(Choice choice, bool gameOver)
 	{
-		gameEventUI_.MakeEventChoice(choice);
+		gameEventUI_.MakeEventChoice(choice, gameOver);
 	}
 }
 

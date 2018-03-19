@@ -73,6 +73,7 @@ public class ResultEffect
 			if (amount > 1) {
 				ret += "+";
 			}
+			//Debug.LogError ("CHANGEITEM AMOUNT: " + amount + " " + value_);
 			ret += amount + " " + value_;
 			break;
 		case ResultEffectType.AddBuff:
@@ -85,13 +86,21 @@ public class ResultEffect
 			if (amount > 1) {
 				ret += "+";
 			}
-			ret += amount + " " + value_ + " every " + turnsToProduce;
+			if (turnsToProduce == 1) {
+				ret += amount + " " + value_ + " every turn";
+			} else {
+				ret += amount + " " + value_ + " every " + turnsToProduce + " turns";
+			}
 			break;
 		case ResultEffectType.ChangeItemProducer:
 			if (amount > 1) {
 				ret += "+";
 			}
-			ret += amount + " to " + value_ + " every " + turnsToProduce;
+			if (turnsToProduce == 0) {
+				ret += amount + " to " + value_ + " production";
+			} else {
+				ret += amount + " to" + value_ + " every " + turnsToProduce + " turns";
+			}
 			break;
 		case ResultEffectType.SetItemCap:
 			ret += value_ + " cap set to " + amount;
@@ -103,6 +112,8 @@ public class ResultEffect
 			ret += amount + " to " + value_ + " cap";
 			break;
 		}
+
+		//Debug.LogError ("Grabbing readable string: " + ret);
 		return ret;
 	}
 	private bool LoadFromXML(XmlNode info)

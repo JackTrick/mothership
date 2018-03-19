@@ -46,8 +46,8 @@ public class EventState : GameUIState {
 		eventUI_.RenderEvent (gameEvent);
 	}
 
-	public void MakeEventChoice(Choice choice)
+	public void MakeEventChoice(Choice choice, bool gameOver)
 	{
-		eventUI_.MakeEventChoice(choice);
+		eventUI_.MakeEventChoice(choice, gameOver);
 	}
 }

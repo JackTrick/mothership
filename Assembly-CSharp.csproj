@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\managers\GameEventManager.cs" />
      <Compile Include="Assets\Scripts\managers\ItemManager.cs" />
+     <Compile Include="Assets\Scripts\managers\SaveManager.cs" />
      <Compile Include="Assets\Scripts\managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\model\gameevents\Challenge.cs" />
      <Compile Include="Assets\Scripts\model\gameevents\Choice.cs" />
@@ -84,9 +85,11 @@
      <Compile Include="Assets\Scripts\ui\GameEventUI.cs" />
      <Compile Include="Assets\Scripts\ui\InventoryUI.cs" />
      <Compile Include="Assets\Scripts\ui\ItemPanelUI.cs" />
+     <Compile Include="Assets\Scripts\ui\SaveLoadUI.cs" />
      <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
      <Compile Include="Assets\Scripts\ui\StartUI.cs" />
      <None Include="Assets\Fonts\voiceactivatedcapsbb_ot\fontinfo.txt" />
+     <None Include="Assets\Resources\Saves\save1.txt" />
      <None Include="Assets\Fonts\voiceactivatedbb_ot\fontinfo.txt" />
      <None Include="Assets\Resources\XML\events.xml" />
  <Reference Include="UnityEngine.UI">

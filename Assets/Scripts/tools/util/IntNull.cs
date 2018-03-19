@@ -19,6 +19,12 @@ public class IntNull
 		defined_ = true;
 	}
 
+	public IntNull (int value, bool defined)
+	{
+		value_ = value;
+		defined_ = defined;
+	}
+
 	/*
 	public static int operator+ (int b, IntNull c) {
 		int a;

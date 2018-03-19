@@ -39,14 +39,19 @@ public class ChoiceUI : MonoBehaviour
 		desc_.text = choice.Desc;
 		effects_.text = choice.GetEffectsString();
 
-		choiceButton_.onClick.AddListener (ChooseSelected);
+		if (choice.CanAffordChoice ()) {
+			choiceButton_.interactable = true;
+			choiceButton_.onClick.AddListener (ChooseSelected);
+		} else {
+			choiceButton_.interactable = false;
+		}
 	}
 
 	public void ChooseSelected()
 	{
 		Debug.Log ("Chose: " + choice_.Name);
 		//choiceButton_.gameObject.SetActive (false);
-		choiceButton_.enabled = false;
+		choiceButton_.interactable = false;
 		GameController.Instance.MakeEventChoice (choice_);
 	}
 

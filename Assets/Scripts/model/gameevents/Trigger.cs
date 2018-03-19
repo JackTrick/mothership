@@ -136,7 +136,6 @@ public class Trigger
 			break;
 		case TriggerType.Flag:
 			return GameEventManager.Instance.IsFlagSet (value_);
-			break;
 		case TriggerType.Item:
 			int inventoryAmount = ItemManager.Instance.GetItemAmount (value_);
 			if (amount_.Defined) {
