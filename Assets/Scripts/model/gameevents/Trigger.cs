@@ -27,6 +27,9 @@ public class Trigger
 		Flag,
 		Artifact,
 		Item,
+		ItemCap,
+		ProduceAmount,
+		Turns,
 		Event
 	};
 
@@ -94,6 +97,15 @@ public class Trigger
 				else if(tempString == "event"){
 					type_ = TriggerType.Item;
 				}
+				else if(tempString == "itemcap"){
+					type_ = TriggerType.ItemCap;
+				}
+				else if(tempString == "turns"){
+					type_ = TriggerType.Turns;
+				}
+				else if(tempString == "produceamount"){
+					type_ = TriggerType.ProduceAmount;
+				}
 				else {
 					success = false;
 					reason = "invalid type tag found in trigger: '" + tempString + "'";
@@ -122,12 +134,15 @@ public class Trigger
 
 	public bool Triggered()
 	{
+		Debug.LogError ("Checking triggered for : " + type_);
 		switch(type_)
 		{
 		case TriggerType.Artifact:
 			// TODO
 			break;
 		case TriggerType.Event:
+			Debug.LogError ("Checking if " + value_ + " is triggered");
+			Debug.LogError (GameEventManager.Instance.IsEventCompleted (value_));
 			if (value_ != null) {
 				return GameEventManager.Instance.IsEventCompleted (value_);
 			} else {
@@ -135,13 +150,41 @@ public class Trigger
 			}
 			break;
 		case TriggerType.Flag:
+			Debug.LogError ("Checking flag: " + value_);
 			return GameEventManager.Instance.IsFlagSet (value_);
 		case TriggerType.Item:
+			Debug.LogError ("Checking item: " + value_);
 			int inventoryAmount = ItemManager.Instance.GetItemAmount (value_);
 			if (amount_.Defined) {
+				Debug.LogError (inventoryAmount + " >= " + amount_.Value);
 				return inventoryAmount >= amount_.Value;
 			} else if (lessThan_.Defined) {
-				return inventoryAmount < amount_.Value;
+				Debug.LogError (inventoryAmount + " < " + lessThan_.Value);
+				return inventoryAmount < lessThan_.Value;
+			}
+			break;		
+		case TriggerType.ItemCap:
+			IntNull inventoryCap = ItemManager.Instance.GetItemCap (value_);
+			if(inventoryCap.Defined && amount_.Defined) {
+				return inventoryCap.Value >= amount_.Value;
+			} else if (inventoryCap.Defined && lessThan_.Defined) {
+				return inventoryCap.Value < lessThan_.Value;
+			}
+			break;
+		case TriggerType.ProduceAmount:
+			IntNull produceAmount = ItemManager.Instance.GetItem (value_).ProducePer;
+			if(produceAmount.Defined && amount_.Defined) {
+				return produceAmount.Value >= amount_.Value;
+			} else if (produceAmount.Defined && lessThan_.Defined) {
+				return produceAmount.Value < lessThan_.Value;
+			}
+			break;
+		case TriggerType.Turns:
+			int turns = GameEventManager.Instance.NumTurns ();
+			if (amount_.Defined) {
+				return turns >= amount_.Value;
+			} else if (lessThan_.Defined) {
+				return turns < amount_.Value;	
 			}
 			break;
 		}

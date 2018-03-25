@@ -10,6 +10,7 @@ public class WeightedPool<T>
 	}
 
 	private List<WeightedEntry> weightedEntries_;
+
 	public int Count { get { return weightedEntries_.Count; } }
 
 	private int totalWeight_;
@@ -20,15 +21,16 @@ public class WeightedPool<T>
 		weightedEntries_ = new List<WeightedEntry> ();
 	}
 
-
 	public void AddToPool(T item, int weight)
 	{
-		WeightedEntry entry;
-		entry.item = item;
-		entry.weight = weight;
+		if (weight > 0) {
+			WeightedEntry entry;
+			entry.item = item;
+			entry.weight = weight;
 
-		totalWeight_ += weight;
-		weightedEntries_.Add (entry);
+			totalWeight_ += weight;
+			weightedEntries_.Add (entry);
+		}
 	}
 
 	public T GetRandomItem()

@@ -124,7 +124,6 @@ public class Choice
 
 	public string GetEffectsString()
 	{
-		
 		string ret = "";
 		if (costs_ != null) {
 			for (int i = 0; i < costs_.Count; ++i) {
@@ -133,7 +132,7 @@ public class Choice
 					ret += ", ";
 				}
 				if (cost.Percent.Defined) {
-					ret += "-" + cost.Percent.Value + "%";
+					ret += "-" + (cost.Percent.Value) + "%";
 				} else {
 					ret += (-1*cost.Amount.Value) + "";
 				}
@@ -165,6 +164,7 @@ public class Choice
 
 	public bool CanAffordChoice()
 	{
+		//Debug.LogError ("Checking can afford choice");
 		bool valid = true;
 		int want = 0;
 		int have = 0;
@@ -172,7 +172,8 @@ public class Choice
 			if (c.Amount.Defined) {
 				want = c.Amount.Value;
 				have = ItemManager.Instance.GetItemAmount (c.ItemType);
-				if (want > have) {
+				//Debug.LogError (c.ItemType + "Want: " + want + "  have: " + have);
+				if (have < want) {
 					return false;
 				}
 			}
@@ -281,6 +282,13 @@ public class Choice
 		bool crit = true;
 
 		if (challenges_ != null) {
+			string challengeString = "";
+
+			if (challenges_.Count > 0) {
+				challengeString = "[";
+			}
+
+			bool first = true;
 			foreach (Challenge challenge in challenges_) {
 				
 				string type = challenge.Type;
@@ -309,6 +317,15 @@ public class Choice
 					success = true && success;
 					crit = true && crit;
 				}
+				if (!first) {
+					challengeString += ", ";
+				}
+				challengeString += type;
+				first = false;
+			}
+
+			if (challenges_.Count > 0) {
+				challengeString += "]";
 			}
 
 			if (challenges_.Count > 0) {
@@ -322,8 +339,11 @@ public class Choice
 				} else {
 					lastChallengeString_ += "Miss";
 				}
+
+				lastChallengeString_ += ", " + challengeString;
 			}
 		}
+
 
 		if (success) {
 			if (crit && resultSuccessCrit_ != null) {

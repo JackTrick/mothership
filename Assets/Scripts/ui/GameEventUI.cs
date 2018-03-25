@@ -87,9 +87,7 @@ public class GameEventUI : MonoBehaviour
 
 	public void MakeEventChoice(Choice choice, bool gameOver)
 	{
-		GameEventManager.Instance.SetEventCompleted (gameEvent_);
-		gameOver_ = gameOver;
-
+		
 		//choices_.transform.DetachChildren ();
 		foreach(ChoiceUI choiceUI in choices_.GetComponentsInChildren<ChoiceUI>())
 		{
@@ -124,6 +122,9 @@ public class GameEventUI : MonoBehaviour
 			}
 		}
 		resultOtherDesc_.text = otherText;
+
+		GameEventManager.Instance.SetEventCompleted (gameEvent_, choice);
+		gameOver_ = gameOver;
 	}
 }
 

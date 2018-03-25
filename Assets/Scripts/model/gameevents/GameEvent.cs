@@ -27,9 +27,15 @@ public class GameEvent {
 	public IntNull Weight { get { return weight_; } }
 
 	private IntNull weightPerTurn_;
+	public IntNull WeightPerTurn { get { return weightPerTurn_; } }
+
+	// TODO: implement weight per turn percent
 	private IntNull weightPerTurnPercent_;
+
 	private IntNull minWeight_;
+	public IntNull MinWeight { get { return minWeight_; } }
 	private IntNull maxWeight_;
+	public IntNull MaxWeight { get { return maxWeight_; } }
 
 	private List<Trigger> triggers_;
 	public List<Trigger> Triggers { get { return triggers_; } }

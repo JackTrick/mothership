@@ -66,8 +66,10 @@ public class Result
 	private WeightChange weightChange_;
 
 	private bool neverAgain_ = false;
+	public bool NeverAgain { get { return neverAgain_; } }
 
 	private IntNull sleepFor_;
+	public IntNull SleepFor { get { return sleepFor_; } }
 
 	private List<ResultEffect> effects_;
 	public List<ResultEffect> Effects { get { return effects_; } }

@@ -88,9 +88,15 @@
      <Compile Include="Assets\Scripts\ui\SaveLoadUI.cs" />
      <Compile Include="Assets\Scripts\ui\ShipStatusUI.cs" />
      <Compile Include="Assets\Scripts\ui\StartUI.cs" />
+     <None Include="Assets\Resources\Saves\squid2.txt" />
      <None Include="Assets\Fonts\voiceactivatedcapsbb_ot\fontinfo.txt" />
+     <None Include="Assets\Resources\Saves\science-far.txt" />
+     <None Include="Assets\Resources\Saves\squid.txt" />
      <None Include="Assets\Resources\Saves\save1.txt" />
+     <None Include="Assets\Resources\Saves\testingturns.txt" />
      <None Include="Assets\Fonts\voiceactivatedbb_ot\fontinfo.txt" />
+     <None Include="Assets\Resources\Saves\voidwatcher-tookcrew.txt" />
+     <None Include="Assets\Resources\Saves\zero_power.txt" />
      <None Include="Assets\Resources\XML\events.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

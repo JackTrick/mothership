@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: items can have a class type
+// TODO: resulteffects can change a random one from the class type
 public class Item
 {
 	private string id_;

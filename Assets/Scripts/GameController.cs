@@ -183,9 +183,11 @@ public class GameController : MonoBehaviour {
 		}
 		*/
 		if (stateMachine_.currentState is EventState) {
-			if (!gameOver_) {
+			if (!gameOver_) {				
 				EventState state = (EventState)stateMachine_.currentState;
 				state.NextEvent ();
+				ItemManager.Instance.TurnPassed ();
+				InventoryChanged ();
 			} else {
 				ShowConclusion ();
 			}
@@ -235,9 +237,9 @@ public class GameController : MonoBehaviour {
 
 			choice.PerformChallengeSetResult ();
 			// TODO deduct costs for the choice, update the inventory
-			DeductCosts(choice);
 			gameOver_ = ExecuteResult (choice.LastResult);
 			state.MakeEventChoice(choice, gameOver_);
+			DeductCosts(choice);
 		}
 	}
 
@@ -309,6 +311,9 @@ public class GameController : MonoBehaviour {
 				break;
 			case ResultEffect.ResultEffectType.EndGame:
 				gameOver = true;
+				break;
+			case ResultEffect.ResultEffectType.NextEvent:
+				GameEventManager.Instance.DoEventNext (effect.Value);
 				break;
 			}
 		}

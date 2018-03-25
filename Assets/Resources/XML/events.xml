@@ -19,38 +19,36 @@
 					<desc>You remember your name. Void Watcher.</desc>
 					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
 					<effect type="setitemamount" value="power" amount="100" hidden="true"/>
-					<effect type="setitemamount" value="missiles" amount="1" hidden="true"/>
+					<effect type="setitemamount" value="missile" amount="1" hidden="true"/>
 					<effect type="setitemamount" value="science crew" amount="6" hidden="true"/>
 					<effect type="setitemamount" value="tactical crew" amount="2" hidden="true"/>
 
 					<effect type="setitemcap" value="power" amount="200" hidden="true"/>
-					<effect type="setitemcap" value="missiles" amount="2" hidden="true"/>
+					<effect type="setitemcap" value="missile" amount="2" hidden="true"/>
 
 					<effect type="setname" value="shipname" name="Void Watcher" hidden="true"/>
 					
 					<effect type="setitemproducer" value="power" amount="-4" turns_to_produce="1" hidden="true"/>
-					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 			<choice>
 				<name>A Scouting Ship</name>
-				<desc>Returning from the front. Battered but not broken.</desc>
+				<desc>Returning from the front. Battered but only slightly broken.</desc>
 
 				<result>
 					<desc>You remember your name. Khonsu.</desc>
 					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
 					<effect type="setitemamount" value="power" amount="80" hidden="true"/>
-					<effect type="setitemamount" value="missiles" amount="3" hidden="true"/>
+					<effect type="setitemamount" value="missile" amount="3" hidden="true"/>
 					<effect type="setitemamount" value="science crew" amount="2" hidden="true"/>
 					<effect type="setitemamount" value="tactical crew" amount="8" hidden="true"/>
 
 					<effect type="setitemcap" value="power" amount="120" hidden="true"/>
-					<effect type="setitemcap" value="missiles" amount="5" hidden="true"/>
+					<effect type="setitemcap" value="missile" amount="5" hidden="true"/>
 
 					<effect type="setname" value="shipname" name="Khonsu"/>
 
 					<effect type="setitemproducer" value="power" amount="-6" turns_to_produce="1" hidden="true"/>
-					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 			<choice>
@@ -59,20 +57,19 @@
 
 				<result>
 					<desc>You remember your name. The Gleeber.</desc>
-					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
+					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>
 					<effect type="setitemamount" value="power" amount="50" hidden="true"/>
-					<effect type="setitemamount" value="missiles" amount="0" hidden="true"/>
+					<effect type="setitemamount" value="missile" amount="0" hidden="true"/>
 					<effect type="setitemamount" value="smugglers" amount="5" hidden="true"/>
 					<effect type="setitemamount" value="science crew" amount="1" hidden="true"/>
 					<effect type="setitemamount" value="tactical crew" amount="2" hidden="true"/>
 
 					<effect type="setitemcap" value="power" amount="50" hidden="true"/>
-					<effect type="setitemcap" value="missiles" amount="0" hidden="true"/>
+					<effect type="setitemcap" value="missile" amount="0" hidden="true"/>
 
 					<effect type="setname" value="shipname" name="The Gleeber"/>
 
 					<effect type="setitemproducer" value="power" amount="-3" turns_to_produce="1" hidden="true"/>
-					<effect type="setitemproducer" value="turn" amount="1" turns_to_produce="1" hidden="true"/>
 				</result>
 			</choice>
 		</choices>
@@ -101,6 +98,7 @@
 					<effect type="changeitemproducer" value="power" amount="-1"/>
 					
 					<effect type="setflag" value="took the settlers"/>
+					<effect type="setflag" value="dealt with settlers"/>
 				</result>
 			</choice>
 			<choice>
@@ -135,12 +133,11 @@
 				<name>Try To Sneak Through</name>
 				<desc>They seem intent on destroying the planet. A mixed blessing. Perhaps they won't notice you.</desc>
 				<challenges>
-					<challenge type="smugglers" level="20"/>
+					<challenge type="smugglers" level="-4"/>
 				</challenges>
 
 				<result type="success">
 					<desc>You are not noticed. Large capital ships have taken up position around the planet. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your  planet's annihilation. It is gone.</desc>
-					<effect type="endgame"/>
 				</result>
 				<result type="failure">
 					<desc>You try to escape unnoticed, but the process is slow. You see large capital ships taking up position around your planet. You are too late. You are destroyed in the annihilation of your planet.</desc>
@@ -155,13 +152,12 @@
 				</challenges>
 
 				<triggers>
-					<trigger type="Item" value="missiles" amount="1"/>
+					<trigger type="Item" value="missile" amount="1"/>
 				</triggers>
 
 				<result type="success">
 					<desc>They didn't expect a ship to be so bold...or foolhardy. Your weapons surprise the ships long enough for you to make your escape. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.</desc>
-					<effect type="changeitemamount" value="missiles" amount="-1"/>
-					<effect type="endgame"/>
+					<effect type="changeitemamount" value="missile" amount="-1"/>
 				</result>
 				<result type="failure">
 					<desc>You fire wildly, and seem poised to make your escape. But then a warning sensor indicates you're being targeted. You scramble...but it's too late. You are destroyed.</desc>
@@ -176,236 +172,936 @@
 				</costs>
 				<result>
 					<desc>The large capital ships surrounding your planet don't respond, but some of the smaller vessels investigate the cache of power. While they're distracted, your warp drive takes you out of the system. Your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.</desc>
-					<effect type="endgame"/>
 				</result>
 			</choice>
 		</choices>
 	</event>
-<!--
-	<! player now in space, has a pool of events -->
-<!--
+
+<!-- player now in space, has a pool of events -->
+
 	<event id="space_armada01">
-		<name>You Must Escape</name>
-		<desc></desc>
+		<name>Raiders</name>
+		<desc>Scavengers of the dark. They are weak, but you might be weaker. Their voices are tinny and biting, demanding that you transfer over an allotment of power or be destroyed.</desc>
+		<image>spacebattle3</image>
 
 		<triggers>
 			<trigger value="start02"/>
+			<trigger type="item" value="power" amount="15"/>
 		</triggers>
 
-		<weight>20</weight>
+		<weight>10</weight>
+		<weight_per_turn>2</weight_per_turn>
+		<min_weight>-5</min_weight>
+		<max_weight>10</max_weight>
 
 		<choices>
 			<choice>
 				<name>Flee</name>
-				<desc></desc>
+				<desc>Their ships are fast, but if you can pick up some speed...</desc>
+				<challenges>
+					<challenge type="smugglers" level="0"/>
+				</challenges>
+
+				<result type="success">
+					<desc>You're able to evade their fire. With speed established, you leave them behind. For now.</desc>
+					<weight type="set" amount="5"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>Your attempt to evade the raiders fails. They ravage you, emptying your power cells and setting you adrift in space.</desc>
+
+					<never_again>true</never_again>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>	
+					<effect type="changeitemamount" value="power" percent="0"/>
+				</result>
 			</choice>
 			<choice>
 				<name>Attack</name>
-				<desc></desc>
+				<desc>Firing upon the raiders might force them to scatter.</desc>
+				<challenges>
+					<challenge type="tactical crew" level="0"/>
+				</challenges>
+
+				<result type="success">
+					<desc>They weren't expecting you to attack them. You use that surprise to scatter them and escape.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="success_crit">
+					<desc>The raiders are taken by surprise. You obliterate them into dust, exacting cold revenge against those who would take advantage of refugees from a destroyed world.</desc>
+
+					<never_again>true</never_again>
+					<effect type="changeitemamount" value="power" amount="10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>You fire upon the raiders, but they dodge, regroup, and fire upon your hull. You broadcast a surrender and are boarded. They ravage you, emptying your power cells and setting you adrift in space</desc>
+					<weight type="set" amount="-5"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="power" percent="0"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Bribe</name>
-				<desc></desc>
+				<name>Give Them What They Want</name>
+				<desc>You are alone in space. You are trying to survive. You have little choice.</desc>
+				<costs>					
+					<cost value="power" amount="15"/>
+				</costs>
+
+				<result>
+					<desc>You transfer the power over without a fight. The raiders thank you, mockingly, and disappear into the darkness of space.</desc>
+					<weight type="set" amount="-2"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>		
+				</result>
 			</choice>
 			<choice>
-				<name>Missile</name>
-				<desc></desc>
+				<name>Fire a Missile</name>
+				<desc>Transfer over...the 'Power.'</desc>
+				<costs>					
+					<cost value="missile" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>You transfer over one of your activated missiles. There is a brief squawk from the main raider ship, before it explodes in a burst of purple light. The other ships scatter or are caught in the blast. You make your exit.</desc>
+					<never_again>true</never_again>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
 			</choice>
 		</choices>
 	</event>
 
+
 	<event id="space_gather01">
-		<name>You Must Escape</name>
-		<desc></desc>
+		<name>Asteroid Field</name>
+		<desc>You come across a few scattered asteroids. It's quiet here.</desc>
+		<image>miningasteroids</image>
 
 		<triggers>
 			<trigger value="start02"/>
 		</triggers>
 
-		<weight>20</weight>
+		<weight>10</weight>
+		<weight_per_turn>2</weight_per_turn>
+		<min_weight>1</min_weight>
+		<max_weight>10</max_weight>
 
 		<choices>
 			<choice>
-				<name>Gather</name>
-				<desc></desc>
+				<name>Mine the Asteroids</name>
+				<desc>You might be able to convert their minerals to power, but this could be time spent escaping deeper into space.</desc>
+				<challenges>
+					<challenge type="science crew" level="1"/>
+				</challenges>
+				<result type="success">
+					<desc>The conversion is successful. Your engines surge with renewed power.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="power" amount="15"/>
+				</result>
+				<result type="success_crit">
+					<desc>The conversion is successful beyond your wildest dreams! You briefly consider taking this new material to your home planet's academy for further study...before you remember.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="power" amount="25"/>
+				</result>
+				<result type="failure">
+					<desc>You are able to scrape out a few meager units of power. You hope it was worth your time.</desc>
+					<weight type="set" amount="1"/>
+					<effect type="changeitemamount" value="power" amount="5"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Flee</name>
-				<desc></desc>
+				<name>Fire a Missile at an Asteroid</name>
+				<desc>The shattered fragments could be easily converted into power.</desc>
+				<costs>
+					<cost value="missile" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>The asteroid explodes into dust and fragments. You collect it and convert it into power. Your engines hum with approval.</desc>
+					<weight type="set" amount="1"/>
+					<effect type="changeitemamount" value="power" amount="10"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Keep Escaping</name>
+				<desc>The forces that destroyed your planet could still be behind you.</desc>
+				<result>
+					<desc>You leave the asteroids behind. You can't stop now.</desc>
+					<weight type="set" amount="1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
 			</choice>
 		</choices>
 	</event>
 
 	<event id="space_squid01">
-		<name>You Must Escape</name>
-		<desc></desc>
+		<name>Something Different</name>
+		<desc>You've heard of them before...but never seen them. A strange being as large as yourself, floating through the emptiness of space. Starlight moves beneath the surface of its inky skin.</desc>
+		<image>spacesquid2</image>
 
 		<triggers>
 			<trigger value="start02"/>
 		</triggers>
 
-		<weight>20</weight>
+		<weight>0</weight>
+		<weight_per_turn>2</weight_per_turn>
+		<min_weight>0</min_weight>
+		<max_weight>8</max_weight>
 
 		<choices>
 			<choice>
-				<name>Avoid</name>
-				<desc></desc>
+				<name>Avoid Them</name>
+				<desc>Perhaps better to look but not touch.</desc>
+				<result>
+					<desc>You give the creature a wide berth. It fades into the distance as you warp away.</desc>
+					<weight type="set" amount="1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Study</name>
-				<desc></desc>
+				<name>Send a Scientist to Study Them</name>
+				<desc>This will take some time...but when else would you get such an opportunity?</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="produceamount" value="space squid research" less_than="1"/>
+				</triggers>
+				<challenges>
+					<challenge type="science crew" level="1"/>
+				</challenges>
+				<result type="success">					
+					<desc>Your scientist returns with theories about these 'space squid.' You begin researching the creatures.</desc>
+					<weight type="set" amount="3"/>
+
+					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
+					<effect type="changeitemamount" value="space squid research" amount="10"/>
+					<effect type="setitemproducer" value="space squid research" amount="5" turns_to_produce="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>The scientist never returns to the ship. The creature disappears from sight.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="science crew" amount="1"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Attack</name>
-				<desc></desc>
+				<name>Send a Scientist to Study Them</name>
+				<desc>This will take some time...but when else would you get such an opportunity?</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="produceamount" value="space squid research" amount="0"/>
+				</triggers>
+				<challenges>
+					<challenge type="science crew" level="1"/>
+				</challenges>
+
+				<result type="success">
+					<desc>Your scientist returns with additional data on the space squids.</desc>				
+					<weight type="set" amount="3"/>
+
+					<effect type="changeitemamount" value="space squid research" amount="15"/>
+				</result>
+				<result type="success_crit">
+					<desc>Your scientist returns with amazing data on the space squids. Your research has been accelerated!</desc>			
+					<weight type="set" amount="2"/>
+
+					<effect type="changeitemamount" value="space squid research" amount="20"/>
+					<effect type="changeitemproducer" value="space squid research" amount="10"/>
+				</result>
+				<result type="failure">
+					<desc>The scientist never returns to the ship. The creature disappears from sight.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="science crew" amount="1"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Missile</name>
-				<desc></desc>
+				<name>Send a Tactical Officer to Attack Them</name>
+				<desc>You may be able to recover some usable material.</desc>
+				<triggers>
+					<trigger type="item" value="tactical crew" amount="2"/>
+				</triggers>
+
+				<result type="success">
+					<desc>Your officer flies over in a small shuttle, firing upon the creatures. While they seem not to notice, after a few volleys the creatures disappear. The shuttle returns with some readings from the strange creature.</desc>
+					<weight type="set" amount="2"/>
+
+					<effect type="changeitemamount" value="space squid research" amount="5"/>
+					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
+				</result>
+				<result type="success_crit">
+					<desc>Your officer flies over in a small shuttle, firing upon the creature. It seems to buck and wave, spinning its vast limbs around the shuttle. After a few volleys from the shuttle, the creature disappears, leaving behind a few orbs of light that are harvested.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="space squid research" amount="10"/>
+					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
+					<effect type="changeitemamount" value="power" amount="5"/>
+				</result>
+				<result type="failure">
+					<desc>Your officer flies over in a small shuttle. After firing a few rounds, the creature suddenly glows with incandescent light. Your sensors burn and short out. When the light fades and you're able to scan the region, you find both the creature and the shuttle are gone.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="changeitemamount" value="tactical crew" amount="1"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Diplomacy</name>
-				<desc></desc>
-			</choice>
-		</choices>
-	</event>
--->
-	<!-- second tier space events -->
-<!--
-	<event id="space_armada02">
-		<name>You Must Escape</name>
-		<desc></desc>
+				<name>Fire a Missile</name>
+				<desc>You've encountered very few problems that a missile can't solve.</desc>
+				<triggers>
+					<trigger type="item" value="missile" amount="1"/>
+				</triggers>
+				<costs>
+					<cost value="missile" amount="1"/>
+				</costs>
+				<result>
+					<desc>The missile seems to disrupt the creature's skin. It dissolves away, leaving a few orbs of light that you harvest and feed into your engines. It might be your imagination, but the galaxy feels emptier now.</desc>
+					
+					<never_again>true</never_again>
 
-		<triggers>
-			<trigger value="start02"/>
-		</triggers>
-
-		<weight>20</weight>
-
-		<choices>
-			<choice>
-				<name>Flee</name>
-				<desc></desc>
+					<effect type="changeitemamount" value="power" amount="30"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Attack</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Missile</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Jettison the Settlers</name>
-				<desc></desc>
-			</choice>
-		</choices>
-	</event>
-
-
-	<event id="space_squid02">
-		<name>You Must Escape</name>
-		<desc></desc>
-
-		<triggers>
-			<trigger value="start02"/>
-		</triggers>
-
-		<weight>20</weight>
-
-		<choices>
-			<choice>
-				<name>Attack</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Missile</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Watch</name>
-				<desc></desc>
-			</choice>
-		</choices>
-	</event>
--->
-	<!-- end tier events -->
-<!--
-	<event id="escape01">
-		<name>You Have Escaped</name>
-		<desc></desc>
-
-		<triggers>
-			<trigger value="start02"/>
-		</triggers>
-
-		<weight>20</weight>
-
-		<choices>
-			<choice>
-				<name>Embrace Space</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Found a New Colony</name>
-				<desc></desc>
-			</choice>
-		</choices>
-	</event>
-
-	<event id="pre_escape01">
-		<name>Settlers Attack!</name>
-		<desc></desc>
-
-		<triggers>
-			<trigger value="start02"/>
-		</triggers>
-
-		<weight>20</weight>
-
-		<choices>
-			<choice>
-				<name>Embrace Space</name>
-				<desc></desc>
-			</choice>
-			<choice>
-				<name>Found a New Colony</name>
-				<desc></desc>
+				<name>Let the Settlers Talk to the Creature</name>
+				<desc>The settlers you took with you speak of these creatures as "Star Gods." They offer to commune with the creature for you.</desc>
+				<triggers>
+					<trigger type="flag" value="took the settlers"/>
+					<trigger type="item" value="settlers" amount="1"/>
+					<trigger logic="NOT" type="flag" value="squid church"/>
+				</triggers>
+				<result>
+					<desc>You are filled with tremendous light and music. When the sensation ceases, you feel you understand these creatures better.</desc>
+					<weight type="set" amount="1"/>
+					<effect type="setflag" value="squid church"/>
+					<effect type="changeitemamount" value="space squid research" amount="20"/>
+					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
 			</choice>
 		</choices>
 	</event>
 
 	<event id="alien_trader01">
-		<name>You Appear to Be In Need!</name>
-		<desc></desc>
+		<name>"Greetings!"</name>
+		<desc>You receive a broadcast, "We greet you, sentient vessel! How good to encounter another traveler here in the Dark Market! May we interest you in our goods?"</desc>
+		<image>coolguys</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger logic="NOT" type="flag" value="pissed off traders"/>
+		</triggers>
+
+		<weight>0</weight>
+		<weight_per_turn>4</weight_per_turn>
+		<min_weight>0</min_weight>
+		<max_weight>12</max_weight>
+
+		<choices>
+			<choice>
+				<name>Power for Crew</name>
+				<desc>"Three of our talented droids to assist you!"</desc>
+				<triggers>
+					<trigger type="item" value="power" amount="0"/>
+				</triggers>
+				<costs>
+					<cost value="power" amount="30"/>
+				</costs>
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<weight type="set" amount="4"/>
+					<sleep_for>4</sleep_for>
+
+					<effect type="changeitemamount" value="science crew" amount="1"/>
+					<effect type="changeitemamount" value="tactical crew" amount="1"/>
+					<effect type="changeitemamount" value="smugglers" amount="1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Science Crew for Missile</name>
+				<desc>"One of your scientists for 1 missile. Do not fear...they will be taken care of."</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="itemcap" value="missile" amount="1"/>
+				</triggers>
+				<costs>
+					<cost value="science crew" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<weight type="set" amount="4"/>
+					<sleep_for>4</sleep_for>
+
+					<effect type="changeitemamount" value="missile" amount="1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Tactical Crew for Missile</name>
+				<desc>"One of your tactical officers for 1 missile. They seem so cute!"</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="itemcap" value="missile" amount="1"/>
+				</triggers>
+				<costs>
+					<cost value="tactical crew" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<weight type="set" amount="4"/>
+					<sleep_for>4</sleep_for>
+
+					<effect type="changeitemamount" value="missile" amount="1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Settlers for Missiles</name>
+				<desc>"We see you have colonists. Let us take them in exchange for 2 missiles. I assure you...they will be properly housed."</desc>
+				<triggers>
+					<trigger type="flag" value="took the settlers"/>
+				</triggers>
+				<costs>
+					<cost value="settlers" percent="100"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<weight type="set" amount="4"/>
+					<sleep_for>4</sleep_for>
+
+					<effect type="changeitemamount" value="missile" amount="2"/>
+					<effect type="setitemamount" value="settlers" amount="0"/>
+					<effect type="changeitemproducer" value="power" amount="1"/>
+					<effect type="clearflag" value="took the settlers"/>
+					<effect type="setflag" value="abandoned settlers"/>
+					<effect type="clearflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Fire a Missile</name>
+				<desc>"Why are you looking at us that way?"</desc>
+				<costs>
+					<cost value="missile" amount="1"/>
+				</costs>
+				
+				<result>
+					<desc>The missile fires but disappears before it reaches the aliens' ship. "Tragedy. Woe. Very well. We know when we are not wanted."</desc>
+					<effect type="setflag" value="pissed off traders"/>					
+				</result>
+			</choice>
+			<choice>
+				<name>Don't Trade</name>
+				<desc>"This is, of course, your choice. But are you sure?"</desc>
+
+				<result>
+					<desc>"Good bye, sentient vessel! Until next time!"</desc>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<weight type="set" amount="4"/>
+					<sleep_for>2</sleep_for>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="alien_trader02">
+		<name>"You Appear to Be In Need!"</name>
+		<desc>You receive a broadcast, "We greet you, sentient vessel! We are sorry that you find yourself in such unfortunate and powerless circumstances. Permit us to lend a hand! Or perhaps more correctly...a trade. We are certain you will agree!"</desc>
+		<image>coolguys</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger logic="NOT" type="flag" value="pissed off traders"/>
+			<trigger type="item" value="power" less_than="1"/>
+		</triggers>
+
+		<mandatory>true</mandatory>
+		<weight>500</weight>
+
+		<choices>
+			<choice>
+				<name>Science Crew for Power</name>
+				<desc>"One of your scientists for 15 power. Do not fear...they will be taken care of."</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="item" value="power" amount="0"/>
+				</triggers>
+				<costs>
+					<cost value="science crew" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<effect type="changeitemamount" value="power" amount="15"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Tactical Crew for Power</name>
+				<desc>"One of your tactical officers for 10 power. They seem so cute!"</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+					<trigger type="item" value="power" amount="0"/>
+				</triggers>
+				<costs>
+					<cost value="tactical crew" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<effect type="changeitemamount" value="power" amount="10"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Settlers for Power</name>
+				<desc>"We see you have colonists. Let us take them in exchange for 20 power. I assure you...they will be properly housed."</desc>
+				<triggers>
+					<trigger type="flag" value="took the settlers"/>
+					<trigger type="item" value="power" amount="0"/>
+				</triggers>
+				<costs>
+					<cost value="settlers" percent="100"/>
+				</costs>
+
+				<result>
+					<desc>"A pleasure doing business with you!"</desc>
+					<effect type="changeitemamount" value="power" amount="20"/>
+
+					<effect type="setitemamount" value="settlers" amount="0"/>
+					<effect type="changeitemproducer" value="power" amount="1"/>
+
+					<effect type="clearflag" value="took the settlers"/>
+					<effect type="setflag" value="abandoned settlers"/>
+					<effect type="clearflag" value="dealt with settlers"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Fire a Missile</name>
+				<desc>"Why are you looking at us that way?"</desc>
+				<costs>
+					<cost value="missile" amount="1"/>
+				</costs>
+				
+				<result>
+					<desc>The missile fires but disappears before it reaches the aliens' ship. "Tragedy. Woe. Very well. We know when we are not wanted."</desc>
+					<effect type="setflag" value="pissed off traders"/>					
+				</result>
+			</choice>
+			<choice>
+				<name>Don't Trade</name>
+				<desc>"This is, of course, your choice. But are you sure?"</desc>
+
+				<result>
+					<desc>"Very well. Good bye."</desc>
+					<effect type="setflag" value="pissed off traders"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="escape01">
+		<name>Adrift...</name>
+		<desc>You feel your systems shutting down. The people within your hull gasp for air. You are powerless.</desc>
+		<image>emptyspace</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger type="flag" value="pissed off traders"/>
+			<trigger type="item" value="power" amount="0"/>
+		</triggers>
+
+		<mandatory>true</mandatory>
+		<weight>5</weight>
+
+		<choices>
+			<choice>
+				<name>Shut Down</name>
+				<desc>Archive your memories.</desc>
+
+				<result>
+					<desc>Your consciousness fades. You are gone.</desc>
+					<effect type="endgame"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<!-- second tier space events -->
+
+	<event id="space_armada02">
+		<name>They Are Here</name>
+		<desc>They've found you. The destroyers of your home. They are upon you. Their weapons are charging.</desc>
+		<image>armada</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger type="turns" amount="15"/>
+		</triggers>
+
+		<weight>10</weight>		
+
+		<choices>
+			<choice>
+				<name>Flee</name>
+				<desc>It's impossible to fight them. You can only flee.</desc>
+				<challenges>
+					<challenge type="smugglers" level="3"/>
+				</challenges>
+
+				<result type="success">
+					<desc>You vent your engines as hard as possible. You can sense the synthsteel degrading, but you don't stop. You manage to leave the shadowy ships behind...but not without a cost.</desc>
+					<weight type="set" amount="5"/>
+					<sleep_for>2</sleep_for>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="power" amount="-5"/>
+					<effect type="changeitemcap" value="power" amount="-10"/>
+				</result>
+				<result type="success_crit">
+					<desc>You vent your engines as hard as possible. You weave through the blasts of quantum energy that fire from the ships. You escape.</desc>
+					<weight type="set" amount="5"/>
+					<sleep_for>2</sleep_for>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="power" amount="-5"/>
+				</result>
+				<result type="failure">
+					<desc>You try to escape...but fail.</desc>
+					<sleep_for>3</sleep_for>
+
+					<effect type="nextevent" value="handle_ship_destruction01"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc>It's a desperate gamble, but maybe you can take out some vital system.</desc>
+				<challenges>
+					<challenge type="tactical crew" level="6"/>
+				</challenges>
+
+				<result type="success">
+					<desc>You get lucky. Your weapons manage to hit some nodule on the surface of one of the ships. For a moment it goes dark before flickering back to life. You escape.</desc>
+					<sleep_for>2</sleep_for>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>You fire upon the ships, trying to do something to stop what eventually happens...</desc>
+					<sleep_for>3</sleep_for>
+
+					<effect type="nextevent" value="handle_ship_destruction01"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Vent Squid Stuff</name>
+				<desc>Your research into the space squids has proven fascinating. Perhaps it can distract them?</desc>
+				<triggers>
+					<trigger type="item" value="space squid research" amount="10"/>
+				</triggers>
+				<costs>					
+					<cost value="space squid research" amount="10"/>
+				</costs>
+
+				<result>
+					<desc>You jettison a portion of your research into the space squids. The large ships seem to pause, scanning the glowing item. You make your escape</desc>
+					<sleep_for>2</sleep_for>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>		
+				</result>
+			</choice>
+			<choice>
+				<name>Fire a Missile</name>
+				<desc>A powerful distraction. Enough to buy you some time</desc>
+				<costs>					
+					<cost value="missile" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>Your missile explodes against their weapons array, causing it to power down. You escape while they recharge.</desc>
+					<sleep_for>3</sleep_for>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<event id="handle_ship_destruction01">
+		<name>Hurt</name>
+		<desc>The weapons have fired. You are going to be hit. You have a single moment to angle your hull.\n\nWhat part of you gets hit?</desc>
+		<image>spaceexplosion</image>
 
 		<triggers>
 			<trigger value="start02"/>
 		</triggers>
 
-		<weight>20</weight>
+		<weight>0</weight>
 
 		<choices>
 			<choice>
-				<name>Pay Power</name>
-				<desc></desc>
+				<name>The Bridge</name>
+				<desc>Where your tactical officers plan.</desc>
+				<triggers>
+					<trigger type="item" value="tactical crew" amount="1"/>
+				</triggers>
+				<result>
+					<desc>Your bridge sustains fire. You lose one of your crew.</desc>
+					<effect type="changeitemamount" value="tactical crew" amount="-1"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Pay Crew</name>
-				<desc></desc>
+				<name>The Crew Quarters</name>
+				<desc>Where you house the settlers.</desc>
+				<triggers>
+					<trigger type="item" value="settlers" amount="1"/>
+				</triggers>
+				<result>
+					<desc>The crew quarters is hit, opening a vent to space. The settlers are sucked out into the endless vacuum.</desc>
+					<effect type="changeitemamount" value="settlers" amount="-10"/>
+					<effect type="flag" value="dealt with settlers"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Pay Settlers</name>
-				<desc></desc>
+				<name>The Canteen</name>
+				<desc>Where your smugglers rest.</desc>
+				<triggers>
+					<trigger type="item" value="smugglers" amount="1"/>
+				</triggers>
+				<result>
+					<desc>The canteen is hit hard. You lose two of your crew.</desc>
+					<effect type="changeitemamount" value="smugglers" amount="-2"/>
+				</result>
 			</choice>
 			<choice>
-				<name>Give Nothing</name>
-				<desc></desc>
+				<name>The Science Facility</name>
+				<desc>Where your scientists research.</desc>
+				<triggers>
+					<trigger type="item" value="science crew" amount="1"/>
+				</triggers>
+				<result>
+					<desc>The science facility is struck. You lose one of your crew and some of your research.</desc>
+					<effect type="changeitemamount" value="science crew" amount="-1"/>
+					<effect type="changeitemamount" value="space squid research" amount="-10"/>
+				</result>
+			</choice>
+			<choice>
+				<name>The Weapons Bay</name>
+				<desc>Where your missiles are stored.</desc>
+				<triggers>
+					<trigger type="item" value="missile" amount="1"/>
+				</triggers>
+				<result>
+					<desc>The weapons bay is hit, and one of the missiles is destroyed. Luckily, the energon suppresors prevent it from exploding.</desc>
+					<effect type="changeitemamount" value="missile" amount="-1"/>
+				</result>
+			</choice>
+			<choice>
+				<name>The Generators</name>
+				<desc>The heart of you.</desc>
+				<result>
+					<desc>The generators sustain a massive hit. You manage a clumsy warp, but lose all available power.</desc>
+					<effect type="changeitemamount" value="power" percent="0"/>
+				</result>
 			</choice>
 		</choices>
 	</event>
 
--->
+	<event id="space_squid02">
+		<name>Something Wonderful</name>
+		<desc>Your crew has reached a breakthrough with the 'space squids.' The lights that dance within them are concentrated stars. Each of the creatures is a window into another part of space. Or perhaps, another universe even.</desc>
+		<image>spacesquid</image>
+
+		<triggers>
+			<trigger value="space_squid01"/>
+			<trigger type="item" value="space squid research" amount="100"/>
+		</triggers>
+
+		<only_once>true</only_once>
+		<weight>30</weight>
+
+		<choices>
+			<choice>
+				<name>Upgrade Power Generation</name>
+				<desc>Your power generators will be able to tap into the raw starstuff of the universe.</desc>
+
+				<result>
+					<desc>Your power generators hum with renewed life. It sounds like music.</desc>
+
+					<effect type="changeitemproducer" value="power" amount="3"/>
+
+					<effect type="changeitemcap" value="power" amount="30" hidden="true"/>
+					<effect type="changeitemamount" value="power" amount="30"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Upgrade Weapons</name>
+				<desc>You will gain, and be able to house, 3 additional missiles.</desc>
+				<result>
+					<desc>The new missiles quietly hum in the weapons bay. You feel they will be most effective.</desc>
+
+					<effect type="changeitemcap" value="missile" amount="3" hidden="true"/>
+					<effect type="changeitemamount" value="missile" amount="3"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Warp Through a Squid</name>
+				<desc>It is theoretically possible that you can use one of the squids as a wormhole. Theoretically. There's also a theory that you'd destroy yourself.</desc>
+				<challenges>
+					<challenge type="science crew" level="2"/>
+				</challenges>
+				<result type="success">
+					<desc>You warp through the body of one of the majestic space squid. Your sensors burn with too much information, your viewports blaze with light. Then darkness and silence. You find yourself in a new part of space that you don't recognize.</desc>
+					<effect type="changeitemamount" value="distance from destruction" amount="100" hidden="true"/>
+					<effect type="setflag" value="dealt with settlers"/>
+				</result>
+				<result type="failure">
+					<desc>You don't travel through a wormhole. You also don't destroy yourself. So much for theories. However, your power banks are almost completely depleted.</desc>
+
+					<effect type="changeitemamount" value="power" percent="1"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	<!-- end tier events -->
+
+	<event id="escape01">
+		<name>You Have Escaped</name>
+		<desc>It is...quiet here. And empty. You estimate yourself beyond the reach of the forces that destroyed your planet. But what will you do now?</desc>
+		<image>openspace</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger type="flag" value="dealt with settlers"/>
+			<trigger type="item" value="distance from destruction" amount="25"/>
+		</triggers>
+
+		<mandatory>true</mandatory>
+		<weight>5</weight>
+
+		<choices>
+			<choice>
+				<name>Embrace Space</name>
+				<desc>Be ever moving. Never stopping. Always traveling.</desc>
+				<result>
+					<desc>Your warp drives power up again, and you continue. Onwards and upwards.</desc>
+					<effect type="endgame"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Found a New Colony</name>
+				<desc>Find a planet to settle.</desc>
+				<result>
+					<desc>Your warp drives power up again, and you continue. To find a place to call home.</desc>
+					<effect type="endgame"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+
+	<event id="pre_escape01">
+		<name>Return of the Settlers</name>
+		<desc>You receive a garbled transmission, "You abandoned us. We survived. You will PAY."</desc>
+		<image>spacefight</image>
+
+		<triggers>
+			<trigger value="start02"/>
+			<trigger type="flag" logic="NOT" value="dealt with settlers"/>
+			<trigger type="flag" value="abandoned the settlers"/>
+			<trigger type="item" value="distance from destruction" amount="20"/>
+		</triggers>
+
+		<mandatory>true</mandatory>
+		<weight>20</weight>
+		<only_once>true</only_once>
+
+		<choices>
+			<choice>
+				<name>Flee</name>
+				<desc>Abandon them...again.</desc>
+				<challenges>
+					<challenge type="smugglers" level="4"/>
+				</challenges>
+
+				<result type="success">
+					<desc>You escape the settlers. Their curses follow you as you go to warp.</desc>
+					
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>The settlers fire upon you. Causing your hull to leak power. They abandon you for dead.</desc>
+
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>	
+					<effect type="changeitemamount" value="power" percent="5"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Attack</name>
+				<desc>They brought this upon themselves.</desc>
+				<challenges>
+					<challenge type="tactical crew" level="4"/>
+				</challenges>
+
+				<result type="success">
+					<desc>You destroy the settlers. Finishing the job that started on your home planet.</desc>
+					<weight type="set" amount="1"/>
+
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+				<result type="failure">
+					<desc>Your attacks are useless. The settlers' small ships are too nimble for your weapons. They fire upon you, causing your hull to leak power. They abandon you for dead.</desc>
+
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="power" percent="5"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Fire a Missile</name>
+				<desc>End the discussion.</desc>
+				<costs>					
+					<cost value="missile" amount="1"/>
+				</costs>
+
+				<result>
+					<desc>You destroy the settlers. Finishing the job that started on your home planet.</desc>
+					<never_again>true</never_again>
+
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+				</result>
+			</choice>
+			<choice>
+				<name>Surrender</name>
+				<desc>Let them take what they want.</desc>
+
+				<result>
+					<desc>The settlers claim a portion of your power and supplies. However, they bring no harm to your crew, claiming to be better than you ever were. They depart in silence.</desc>
+					<never_again>true</never_again>
+
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+
+					<effect type="changeitemamount" value="power" percent="30"/>
+					<effect type="changeitemamount" value="missile" percent="100"/>
+				</result>
+			</choice>
+		</choices>
+	</event>
+
+	
 
 	<!--
 	<event id="termites01">

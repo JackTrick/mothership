@@ -20,7 +20,6 @@ public class ItemManager : MonoBehaviour
 	{
 		inventory_ = new Dictionary<string, Item> ();
 		hidden_ = new Dictionary<string, bool> ();
-		// TODO, implement production
 	}
 
 	public void ResetSave()
@@ -52,6 +51,15 @@ public class ItemManager : MonoBehaviour
 		return true;
 	}
 
+	public void TurnPassed()
+	{
+		Item item;
+		foreach (KeyValuePair<string, Item> entry in inventory_) {
+			item = entry.Value;
+			item.TurnPassed ();
+		}
+	}
+
 	public void Reset()
 	{
 		inventory_.Clear ();
@@ -81,6 +89,17 @@ public class ItemManager : MonoBehaviour
 		}
 	}
 
+	public Item GetItem(string itemName)
+	{
+		Item item = null;
+
+		if (inventory_.ContainsKey (itemName)) {
+			item = inventory_ [itemName];
+		}
+
+		return item;
+	}
+
 	public int GetItemAmount(string itemName)
 	{
 		int amount = 0;
@@ -91,6 +110,18 @@ public class ItemManager : MonoBehaviour
 
 		return amount;
 	}
+
+	public IntNull GetItemCap(string itemName)
+	{
+		IntNull cap = new IntNull ();
+
+		if (inventory_.ContainsKey (itemName)) {
+			cap = inventory_ [itemName].Cap;
+		}
+
+		return cap;
+	}
+
 
 	public void SetItemAmount(string itemName, int amount)
 	{
@@ -107,19 +138,21 @@ public class ItemManager : MonoBehaviour
 
 	public void ChangeItemAmount(string itemName, int amount, bool percent = false)
 	{
-		Item item;
+		Item item = null;
 		if (inventory_.ContainsKey (itemName)) {
 			item = inventory_ [itemName];
 		}
 		else{
-			item = new Item(itemName);
-			inventory_ [itemName] = item;
+			if (amount > 0) {
+				item = new Item (itemName);
+				inventory_ [itemName] = item;
+			}
 		}
 
 		if (!percent) {				
 			item.Amount += amount;
 		} else {
-			item.Amount *= (int)(amount / 100.0f);
+			item.Amount = (int)(Mathf.Round(item.Amount * amount / 100.0f));
 		}
 	}
 

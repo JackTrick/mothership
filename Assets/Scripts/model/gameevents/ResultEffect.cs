@@ -24,7 +24,9 @@ public class ResultEffect
 		SetItemCap,
 		ChangeItemCap,
 		SetName,
-		EndGame
+		Event,
+		EndGame,
+		NextEvent
 	};
 
 	private ResultEffectType type_;
@@ -70,11 +72,20 @@ public class ResultEffect
 			ret += value_ + " set to " + amount;
 			break;
 		case ResultEffectType.ChangeItemAmount:			
-			if (amount > 1) {
-				ret += "+";
+			float percent = 1.0f;
+			if (percent_.Defined) {
+				if (percent_.Value > 100) {
+					ret += "+";
+				} else {
+					ret += "-";
+				}
+				ret += (100 - percent_.Value) + "% " + value_;
+			} else {
+				if (amount > 1) {
+					ret += "+";
+				}
+				ret += amount + " " + value_;
 			}
-			//Debug.LogError ("CHANGEITEM AMOUNT: " + amount + " " + value_);
-			ret += amount + " " + value_;
 			break;
 		case ResultEffectType.AddBuff:
 			ret += "gained buff: " + value_;
@@ -150,6 +161,8 @@ public class ResultEffect
 				type_ = ResultEffectType.EndGame;
 			} else if (tempString == "setname") {
 				type_ = ResultEffectType.SetName;
+			} else if (tempString == "nextevent") {
+				type_ = ResultEffectType.NextEvent;
 			} else {
 				success = false;
 				reason = "invalid type tag: '" + tempString + "' for result effect";
