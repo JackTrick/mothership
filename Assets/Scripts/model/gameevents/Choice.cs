@@ -323,7 +323,7 @@ public class Choice
 				challengeString += type;
 				first = false;
 			}
-
+			//crit = true;
 			if (challenges_.Count > 0) {
 				challengeString += "]";
 			}
@@ -340,7 +340,7 @@ public class Choice
 					lastChallengeString_ += "Miss";
 				}
 
-				lastChallengeString_ += ", " + challengeString;
+				lastChallengeString_ += " " + challengeString;
 			}
 		}
 

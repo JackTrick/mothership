@@ -105,8 +105,7 @@ public class GameEventUI : MonoBehaviour
 			resultTitle_.gameObject.SetActive (false);
 		}
 		Result result = choice.LastResult;
-		resultDesc_.text = result.Desc;
-
+		resultDesc_.text = result.Desc.Replace("\\n", "\n");
 		string otherText = "";
 		string lastString = "";
 		List<ResultEffect> effects = result.Effects;

@@ -93,6 +93,8 @@
      <None Include="Assets\Resources\Saves\science-far.txt" />
      <None Include="Assets\Resources\Saves\squid.txt" />
      <None Include="Assets\Resources\Saves\save1.txt" />
+     <None Include="Assets\Resources\Saves\snugglers.txt" />
+     <None Include="Assets\Resources\Saves\travis-gleeb.txt" />
      <None Include="Assets\Resources\Saves\testingturns.txt" />
      <None Include="Assets\Fonts\voiceactivatedbb_ot\fontinfo.txt" />
      <None Include="Assets\Resources\Saves\voidwatcher-tookcrew.txt" />

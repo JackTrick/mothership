@@ -17,7 +17,7 @@
 
 				<result>
 					<desc>You remember your name. Void Watcher.</desc>
-					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>		
+					<effect type="setitemamount" value="distance from destruction" amount="0" hidden="true"/>					
 					<effect type="setitemamount" value="power" amount="100" hidden="true"/>
 					<effect type="setitemamount" value="missile" amount="1" hidden="true"/>
 					<effect type="setitemamount" value="science crew" amount="6" hidden="true"/>
@@ -137,7 +137,9 @@
 				</challenges>
 
 				<result type="success">
-					<desc>You are not noticed. Large capital ships have taken up position around the planet. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your  planet's annihilation. It is gone.</desc>
+					<desc>You are not noticed. Large capital ships have taken up position around the planet. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.\n\nYou estimate that you will be able to escape if you can reach a distance of 200 sectors away from the destruction.</desc>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
+					<effect type="setitemcap" value="distance from destruction" amount="200" hidden="true"/>
 				</result>
 				<result type="failure">
 					<desc>You try to escape unnoticed, but the process is slow. You see large capital ships taking up position around your planet. You are too late. You are destroyed in the annihilation of your planet.</desc>
@@ -156,8 +158,10 @@
 				</triggers>
 
 				<result type="success">
-					<desc>They didn't expect a ship to be so bold...or foolhardy. Your weapons surprise the ships long enough for you to make your escape. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.</desc>
+					<desc>They didn't expect a ship to be so bold...or foolhardy. Your weapons surprise the ships long enough for you to make your escape. As your warp drive takes you out of the system, your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.\n\nYou estimate that you will be able to escape if you can reach a distance of 200 sectors away from the destruction.</desc>
 					<effect type="changeitemamount" value="missile" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
+					<effect type="setitemcap" value="distance from destruction" amount="200" hidden="true"/>
 				</result>
 				<result type="failure">
 					<desc>You fire wildly, and seem poised to make your escape. But then a warning sensor indicates you're being targeted. You scramble...but it's too late. You are destroyed.</desc>
@@ -171,7 +175,9 @@
 					<cost value="power" amount="30"/>
 				</costs>
 				<result>
-					<desc>The large capital ships surrounding your planet don't respond, but some of the smaller vessels investigate the cache of power. While they're distracted, your warp drive takes you out of the system. Your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.</desc>
+					<desc>The large capital ships surrounding your planet don't respond, but some of the smaller vessels investigate the cache of power. While they're distracted, your warp drive takes you out of the system. Your sensors pick up the heat anomaly that signals your planet's annihilation. It is gone.\n\nYou estimate that you will be able to escape if you can reach a distance of 200 sectors away from the destruction.</desc>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
+					<effect type="setitemcap" value="distance from destruction" amount="200" hidden="true"/>
 				</result>
 			</choice>
 		</choices>
@@ -204,16 +210,15 @@
 
 				<result type="success">
 					<desc>You're able to evade their fire. With speed established, you leave them behind. For now.</desc>
-					<weight type="set" amount="5"/>
+					<weight type="set" amount="1"/>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 				<result type="failure">
 					<desc>Your attempt to evade the raiders fails. They ravage you, emptying your power cells and setting you adrift in space.</desc>
 
 					<never_again>true</never_again>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>	
-					<effect type="changeitemamount" value="power" percent="0"/>
+					<effect type="changeitemamount" value="power" percent="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -227,21 +232,20 @@
 					<desc>They weren't expecting you to attack them. You use that surprise to scatter them and escape.</desc>
 					<weight type="set" amount="1"/>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 				<result type="success_crit">
 					<desc>The raiders are taken by surprise. You obliterate them into dust, exacting cold revenge against those who would take advantage of refugees from a destroyed world.</desc>
 
 					<never_again>true</never_again>
 					<effect type="changeitemamount" value="power" amount="10"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 				<result type="failure">
 					<desc>You fire upon the raiders, but they dodge, regroup, and fire upon your hull. You broadcast a surrender and are boarded. They ravage you, emptying your power cells and setting you adrift in space</desc>
 					<weight type="set" amount="-5"/>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
-					<effect type="changeitemamount" value="power" percent="0"/>
+					<effect type="changeitemamount" value="power" percent="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -255,7 +259,7 @@
 					<desc>You transfer the power over without a fight. The raiders thank you, mockingly, and disappear into the darkness of space.</desc>
 					<weight type="set" amount="-2"/>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>		
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>		
 				</result>
 			</choice>
 			<choice>
@@ -269,7 +273,7 @@
 					<desc>You transfer over one of your activated missiles. There is a brief squawk from the main raider ship, before it explodes in a burst of purple light. The other ships scatter or are caught in the blast. You make your exit.</desc>
 					<never_again>true</never_again>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 		</choices>
@@ -285,10 +289,10 @@
 			<trigger value="start02"/>
 		</triggers>
 
-		<weight>10</weight>
+		<weight>0</weight>
 		<weight_per_turn>2</weight_per_turn>
-		<min_weight>1</min_weight>
-		<max_weight>10</max_weight>
+		<min_weight>0</min_weight>
+		<max_weight>8</max_weight>
 
 		<choices>
 			<choice>
@@ -299,20 +303,23 @@
 				</challenges>
 				<result type="success">
 					<desc>The conversion is successful. Your engines surge with renewed power.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
-					<effect type="changeitemamount" value="power" amount="15"/>
+					<effect type="changeitemamount" value="power" amount="15"/>					
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="success_crit">
 					<desc>The conversion is successful beyond your wildest dreams! You briefly consider taking this new material to your home planet's academy for further study...before you remember.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
 					<effect type="changeitemamount" value="power" amount="25"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="failure">
 					<desc>You are able to scrape out a few meager units of power. You hope it was worth your time.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 					<effect type="changeitemamount" value="power" amount="5"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 			</choice>
 			<choice>
@@ -324,8 +331,9 @@
 
 				<result>
 					<desc>The asteroid explodes into dust and fragments. You collect it and convert it into power. Your engines hum with approval.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 					<effect type="changeitemamount" value="power" amount="10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -333,8 +341,8 @@
 				<desc>The forces that destroyed your planet could still be behind you.</desc>
 				<result>
 					<desc>You leave the asteroids behind. You can't stop now.</desc>
-					<weight type="set" amount="1"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<weight type="set" amount="0"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 		</choices>
@@ -360,8 +368,8 @@
 				<desc>Perhaps better to look but not touch.</desc>
 				<result>
 					<desc>You give the creature a wide berth. It fades into the distance as you warp away.</desc>
-					<weight type="set" amount="1"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<weight type="set" amount="0"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -376,17 +384,19 @@
 				</challenges>
 				<result type="success">					
 					<desc>Your scientist returns with theories about these 'space squid.' You begin researching the creatures.</desc>
-					<weight type="set" amount="3"/>
+					<weight type="set" amount="1"/>
 
 					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
 					<effect type="changeitemamount" value="space squid research" amount="10"/>
 					<effect type="setitemproducer" value="space squid research" amount="5" turns_to_produce="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="failure">
 					<desc>The scientist never returns to the ship. The creature disappears from sight.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
-					<effect type="changeitemamount" value="science crew" amount="1"/>
+					<effect type="changeitemamount" value="science crew" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 			</choice>
 			<choice>
@@ -394,7 +404,7 @@
 				<desc>This will take some time...but when else would you get such an opportunity?</desc>
 				<triggers>
 					<trigger type="item" value="science crew" amount="1"/>
-					<trigger type="produceamount" value="space squid research" amount="0"/>
+					<trigger type="produceamount" value="space squid research" amount="1"/>
 				</triggers>
 				<challenges>
 					<challenge type="science crew" level="1"/>
@@ -402,22 +412,25 @@
 
 				<result type="success">
 					<desc>Your scientist returns with additional data on the space squids.</desc>				
-					<weight type="set" amount="3"/>
+					<weight type="set" amount="1"/>
 
 					<effect type="changeitemamount" value="space squid research" amount="15"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="success_crit">
 					<desc>Your scientist returns with amazing data on the space squids. Your research has been accelerated!</desc>			
-					<weight type="set" amount="2"/>
+					<weight type="set" amount="0"/>
 
 					<effect type="changeitemamount" value="space squid research" amount="20"/>
 					<effect type="changeitemproducer" value="space squid research" amount="10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="failure">
 					<desc>The scientist never returns to the ship. The creature disappears from sight.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
-					<effect type="changeitemamount" value="science crew" amount="1"/>
+					<effect type="changeitemamount" value="science crew" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 			</choice>
 			<choice>
@@ -429,24 +442,27 @@
 
 				<result type="success">
 					<desc>Your officer flies over in a small shuttle, firing upon the creatures. While they seem not to notice, after a few volleys the creatures disappear. The shuttle returns with some readings from the strange creature.</desc>
-					<weight type="set" amount="2"/>
+					<weight type="set" amount="1"/>
 
 					<effect type="changeitemamount" value="space squid research" amount="5"/>
 					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="success_crit">
 					<desc>Your officer flies over in a small shuttle, firing upon the creature. It seems to buck and wave, spinning its vast limbs around the shuttle. After a few volleys from the shuttle, the creature disappears, leaving behind a few orbs of light that are harvested.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
 					<effect type="changeitemamount" value="space squid research" amount="10"/>
 					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
 					<effect type="changeitemamount" value="power" amount="5"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 				<result type="failure">
 					<desc>Your officer flies over in a small shuttle. After firing a few rounds, the creature suddenly glows with incandescent light. Your sensors burn and short out. When the light fades and you're able to scan the region, you find both the creature and the shuttle are gone.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 
-					<effect type="changeitemamount" value="tactical crew" amount="1"/>
+					<effect type="changeitemamount" value="tactical crew" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 			</choice>
 			<choice>
@@ -464,7 +480,7 @@
 					<never_again>true</never_again>
 
 					<effect type="changeitemamount" value="power" amount="30"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -477,11 +493,11 @@
 				</triggers>
 				<result>
 					<desc>You are filled with tremendous light and music. When the sensation ceases, you feel you understand these creatures better.</desc>
-					<weight type="set" amount="1"/>
+					<weight type="set" amount="0"/>
 					<effect type="setflag" value="squid church"/>
 					<effect type="changeitemamount" value="space squid research" amount="20"/>
 					<effect type="setitemcap" value="space squid research" amount="100" hidden="true"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 		</choices>
@@ -520,7 +536,7 @@
 					<effect type="changeitemamount" value="science crew" amount="1"/>
 					<effect type="changeitemamount" value="tactical crew" amount="1"/>
 					<effect type="changeitemamount" value="smugglers" amount="1"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -540,7 +556,7 @@
 					<sleep_for>4</sleep_for>
 
 					<effect type="changeitemamount" value="missile" amount="1"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -560,7 +576,7 @@
 					<sleep_for>4</sleep_for>
 
 					<effect type="changeitemamount" value="missile" amount="1"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -578,13 +594,14 @@
 					<weight type="set" amount="4"/>
 					<sleep_for>4</sleep_for>
 
+					<effect type="changeitemcap" value="missile" amount="2" hidden="true"/>
 					<effect type="changeitemamount" value="missile" amount="2"/>
 					<effect type="setitemamount" value="settlers" amount="0"/>
 					<effect type="changeitemproducer" value="power" amount="1"/>
 					<effect type="clearflag" value="took the settlers"/>
 					<effect type="setflag" value="abandoned settlers"/>
 					<effect type="clearflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -597,6 +614,7 @@
 				<result>
 					<desc>The missile fires but disappears before it reaches the aliens' ship. "Tragedy. Woe. Very well. We know when we are not wanted."</desc>
 					<effect type="setflag" value="pissed off traders"/>					
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -605,7 +623,7 @@
 
 				<result>
 					<desc>"Good bye, sentient vessel! Until next time!"</desc>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 					<weight type="set" amount="4"/>
 					<sleep_for>2</sleep_for>
 				</result>
@@ -642,6 +660,7 @@
 				<result>
 					<desc>"A pleasure doing business with you!"</desc>
 					<effect type="changeitemamount" value="power" amount="15"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -658,6 +677,7 @@
 				<result>
 					<desc>"A pleasure doing business with you!"</desc>
 					<effect type="changeitemamount" value="power" amount="10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -681,6 +701,7 @@
 					<effect type="clearflag" value="took the settlers"/>
 					<effect type="setflag" value="abandoned settlers"/>
 					<effect type="clearflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 			<choice>
@@ -692,7 +713,8 @@
 				
 				<result>
 					<desc>The missile fires but disappears before it reaches the aliens' ship. "Tragedy. Woe. Very well. We know when we are not wanted."</desc>
-					<effect type="setflag" value="pissed off traders"/>					
+					<effect type="setflag" value="pissed off traders"/>	
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>				
 				</result>
 			</choice>
 			<choice>
@@ -715,7 +737,7 @@
 		<triggers>
 			<trigger value="start02"/>
 			<trigger type="flag" value="pissed off traders"/>
-			<trigger type="item" value="power" amount="0"/>
+			<trigger type="item" value="power" less_than="1"/>
 		</triggers>
 
 		<mandatory>true</mandatory>
@@ -761,17 +783,19 @@
 					<weight type="set" amount="5"/>
 					<sleep_for>2</sleep_for>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
 					<effect type="changeitemamount" value="power" amount="-5"/>
 					<effect type="changeitemcap" value="power" amount="-10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
+					
 				</result>
 				<result type="success_crit">
 					<desc>You vent your engines as hard as possible. You weave through the blasts of quantum energy that fire from the ships. You escape.</desc>
 					<weight type="set" amount="5"/>
 					<sleep_for>2</sleep_for>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
 					<effect type="changeitemamount" value="power" amount="-5"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="15"/>
+					
 				</result>
 				<result type="failure">
 					<desc>You try to escape...but fail.</desc>
@@ -791,7 +815,7 @@
 					<desc>You get lucky. Your weapons manage to hit some nodule on the surface of one of the ships. For a moment it goes dark before flickering back to life. You escape.</desc>
 					<sleep_for>2</sleep_for>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 				<result type="failure">
 					<desc>You fire upon the ships, trying to do something to stop what eventually happens...</desc>
@@ -811,10 +835,10 @@
 				</costs>
 
 				<result>
-					<desc>You jettison a portion of your research into the space squids. The large ships seem to pause, scanning the glowing item. You make your escape</desc>
+					<desc>You jettison a portion of your space squid research. The large ships seem to pause, scanning the glowing item. You make your escape</desc>
 					<sleep_for>2</sleep_for>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>		
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>		
 				</result>
 			</choice>
 			<choice>
@@ -828,7 +852,7 @@
 					<desc>Your missile explodes against their weapons array, causing it to power down. You escape while they recharge.</desc>
 					<sleep_for>3</sleep_for>
 
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 			</choice>
 		</choices>
@@ -855,6 +879,7 @@
 				<result>
 					<desc>Your bridge sustains fire. You lose one of your crew.</desc>
 					<effect type="changeitemamount" value="tactical crew" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -866,7 +891,8 @@
 				<result>
 					<desc>The crew quarters is hit, opening a vent to space. The settlers are sucked out into the endless vacuum.</desc>
 					<effect type="changeitemamount" value="settlers" amount="-10"/>
-					<effect type="flag" value="dealt with settlers"/>
+					<effect type="setflag" value="dealt with settlers"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -878,6 +904,7 @@
 				<result>
 					<desc>The canteen is hit hard. You lose two of your crew.</desc>
 					<effect type="changeitemamount" value="smugglers" amount="-2"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -890,6 +917,7 @@
 					<desc>The science facility is struck. You lose one of your crew and some of your research.</desc>
 					<effect type="changeitemamount" value="science crew" amount="-1"/>
 					<effect type="changeitemamount" value="space squid research" amount="-10"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -901,6 +929,7 @@
 				<result>
 					<desc>The weapons bay is hit, and one of the missiles is destroyed. Luckily, the energon suppresors prevent it from exploding.</desc>
 					<effect type="changeitemamount" value="missile" amount="-1"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -939,6 +968,7 @@
 
 					<effect type="changeitemcap" value="power" amount="30" hidden="true"/>
 					<effect type="changeitemamount" value="power" amount="30"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -949,6 +979,7 @@
 
 					<effect type="changeitemcap" value="missile" amount="3" hidden="true"/>
 					<effect type="changeitemamount" value="missile" amount="3"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -959,7 +990,8 @@
 				</challenges>
 				<result type="success">
 					<desc>You warp through the body of one of the majestic space squid. Your sensors burn with too much information, your viewports blaze with light. Then darkness and silence. You find yourself in a new part of space that you don't recognize.</desc>
-					<effect type="changeitemamount" value="distance from destruction" amount="100" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="1000"/>
+					<effect type="changeitemcap" value="distance from destruction" amount="1000" hidden="true"/>
 					<effect type="setflag" value="dealt with settlers"/>
 				</result>
 				<result type="failure">
@@ -981,7 +1013,7 @@
 		<triggers>
 			<trigger value="start02"/>
 			<trigger type="flag" value="dealt with settlers"/>
-			<trigger type="item" value="distance from destruction" amount="25"/>
+			<trigger type="item" value="distance from destruction" amount="200"/>
 		</triggers>
 
 		<mandatory>true</mandatory>
@@ -1015,9 +1047,9 @@
 
 		<triggers>
 			<trigger value="start02"/>
-			<trigger type="flag" logic="NOT" value="dealt with settlers"/>
-			<trigger type="flag" value="abandoned the settlers"/>
-			<trigger type="item" value="distance from destruction" amount="20"/>
+			<trigger type="flag" value="abandoned settlers"/>
+			<trigger type="item" value="distance from destruction" amount="200"/>
+			<trigger type="flag" logic="NOT" value="dealt with settlers"/>			
 		</triggers>
 
 		<mandatory>true</mandatory>
@@ -1036,14 +1068,14 @@
 					<desc>You escape the settlers. Their curses follow you as you go to warp.</desc>
 					
 					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="10"/>
 				</result>
 				<result type="failure">
 					<desc>The settlers fire upon you. Causing your hull to leak power. They abandon you for dead.</desc>
 
-					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>	
+					<effect type="setflag" value="dealt with settlers"/>						
 					<effect type="changeitemamount" value="power" percent="5"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -1058,14 +1090,15 @@
 					<weight type="set" amount="1"/>
 
 					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 				<result type="failure">
 					<desc>Your attacks are useless. The settlers' small ships are too nimble for your weapons. They fire upon you, causing your hull to leak power. They abandon you for dead.</desc>
 
 					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
 					<effect type="changeitemamount" value="power" percent="5"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="3"/>
 				</result>
 			</choice>
 			<choice>
@@ -1080,7 +1113,7 @@
 					<never_again>true</never_again>
 
 					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 			<choice>
@@ -1088,14 +1121,15 @@
 				<desc>Let them take what they want.</desc>
 
 				<result>
-					<desc>The settlers claim a portion of your power and supplies. However, they bring no harm to your crew, claiming to be better than you ever were. They depart in silence.</desc>
+					<desc>The settlers claim a portion of your power and supplies. However, they do no harm to your crew, claiming to be better than you ever were. They depart in silence.</desc>
 					<never_again>true</never_again>
 
 					<effect type="setflag" value="dealt with settlers"/>
-					<effect type="changeitemamount" value="distance from destruction" amount="1" hidden="true"/>
 
 					<effect type="changeitemamount" value="power" percent="30"/>
 					<effect type="changeitemamount" value="missile" percent="100"/>
+
+					<effect type="changeitemamount" value="distance from destruction" amount="5"/>
 				</result>
 			</choice>
 		</choices>

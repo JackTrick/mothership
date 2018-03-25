@@ -212,7 +212,7 @@ public class SaveManager : MonoBehaviour
 				}
 				else if(readingSleepingEvents){
 					string temp = reader.ReadLine ();
-					Debug.LogError ("SLEEP EVENTTTTTTTTTTTTTTTTTTTT: " + temp);
+					//Debug.LogError ("SLEEP EVENTTTTTTTTTTTTTTTTTTTT: " + temp);
 					int amount = int.Parse(temp);
 					GameEventManager.Instance.SleepEventID (line, amount);
 				}
@@ -221,11 +221,11 @@ public class SaveManager : MonoBehaviour
 					GameEventManager.Instance.SetEventWeight (line, weight);
 				}
 				else if(readingInventory){
-					Debug.LogWarning ("READING INVENTORYYUUUUUUUUUUUUUUUUUUUUU");
+					//Debug.LogWarning ("READING INVENTORYYUUUUUUUUUUUUUUUUUUUUU");
 					Item temp = new Item (line);
 					string itemType = line;
 					int amount = int.Parse(reader.ReadLine());
-					Debug.LogWarning (itemType + " : " + amount);
+					//Debug.LogWarning (itemType + " : " + amount);
 					bool defined = reader.ReadLine() == "True";
 					int value = int.Parse(reader.ReadLine());
 					IntNull cap = new IntNull(value, defined);

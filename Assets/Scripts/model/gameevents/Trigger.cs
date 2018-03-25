@@ -134,32 +134,32 @@ public class Trigger
 
 	public bool Triggered()
 	{
-		Debug.LogError ("Checking triggered for : " + type_);
+		//Debug.LogError ("Checking triggered for : " + type_);
 		switch(type_)
 		{
 		case TriggerType.Artifact:
 			// TODO
 			break;
 		case TriggerType.Event:
-			Debug.LogError ("Checking if " + value_ + " is triggered");
-			Debug.LogError (GameEventManager.Instance.IsEventCompleted (value_));
+			//Debug.LogError ("Checking if " + value_ + " is triggered");
+			//Debug.LogError (GameEventManager.Instance.IsEventCompleted (value_));
 			if (value_ != null) {
 				return GameEventManager.Instance.IsEventCompleted (value_);
 			} else {
-				Debug.LogError ("Tried to check event trigger, but no event id defined");
+				//Debug.LogError ("Tried to check event trigger, but no event id defined");
 			}
 			break;
 		case TriggerType.Flag:
-			Debug.LogError ("Checking flag: " + value_);
+			//Debug.LogError ("Checking flag: " + value_);
 			return GameEventManager.Instance.IsFlagSet (value_);
 		case TriggerType.Item:
-			Debug.LogError ("Checking item: " + value_);
+			//Debug.LogError ("Checking item: " + value_);
 			int inventoryAmount = ItemManager.Instance.GetItemAmount (value_);
 			if (amount_.Defined) {
-				Debug.LogError (inventoryAmount + " >= " + amount_.Value);
+				//Debug.LogError (inventoryAmount + " >= " + amount_.Value);
 				return inventoryAmount >= amount_.Value;
 			} else if (lessThan_.Defined) {
-				Debug.LogError (inventoryAmount + " < " + lessThan_.Value);
+				//Debug.LogError (inventoryAmount + " < " + lessThan_.Value);
 				return inventoryAmount < lessThan_.Value;
 			}
 			break;		
@@ -172,11 +172,23 @@ public class Trigger
 			}
 			break;
 		case TriggerType.ProduceAmount:
-			IntNull produceAmount = ItemManager.Instance.GetItem (value_).ProducePer;
-			if(produceAmount.Defined && amount_.Defined) {
-				return produceAmount.Value >= amount_.Value;
-			} else if (produceAmount.Defined && lessThan_.Defined) {
-				return produceAmount.Value < lessThan_.Value;
+			//Debug.LogError ("Checking Produce Amount");
+			Item item = ItemManager.Instance.GetItem (value_);
+			int produceAmount = 0;
+			if (item != null) {
+				//Debug.LogError ("Found item");
+				IntNull producer = item.ProducePer;
+				if (producer.Defined) {					
+					produceAmount = producer.Value;
+					//Debug.LogError ("Found producer: " + produceAmount);
+				}
+			}
+			if(amount_.Defined) {
+				//Debug.LogError ("amount: " + produceAmount + " >= " + amount_.Value);
+				return produceAmount >= amount_.Value;
+			} else if (lessThan_.Defined) {
+				//Debug.LogError ("lessThan: " + produceAmount + " < " + lessThan_.Value);
+				return produceAmount < lessThan_.Value;
 			}
 			break;
 		case TriggerType.Turns:
