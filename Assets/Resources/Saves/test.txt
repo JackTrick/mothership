@@ -1,0 +1,11 @@
+[numturns]
+0
+[flags]
+[namebank]
+[completedEventIDs]
+[neverSpawnEventIDs]
+[sleepingEventIDs]
+[eventWeights]
+start00
+1
+[inventory]
